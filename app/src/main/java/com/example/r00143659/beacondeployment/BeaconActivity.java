@@ -16,16 +16,19 @@ import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-public class MainActivity  extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
+public class BeaconActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
 
     private BeaconManager mBeaconManager;
+    static List<BeaconItem> beacons = new ArrayList<BeaconItem>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_beacon);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,9 +36,6 @@ public class MainActivity  extends AppCompatActivity implements BeaconConsumer, 
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-
-
-
     @Override
     //This method gets called when the activity appears
     public  void onResume (){
@@ -79,9 +79,14 @@ public class MainActivity  extends AppCompatActivity implements BeaconConsumer, 
                 Log.d("RangingActivity", "I see a beacon transmitting namespace id: " + namespaceId +
                         " and instance id: " + instanceId +
                         " approximately " + beacon.getDistance() + " meters away.");
+                final String Id = String.valueOf(instanceId);
+                final String namespace = String.valueOf(namespaceId);
+                final double distance =  beacon.getDistance();
+              //  storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        ((TextView)MainActivity.this.findViewById(R.id.message)).setText("Hello world, and welcome to Eddystone!");
+                        storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
+                        ((TextView)BeaconActivity.this.findViewById(R.id.message)).setText("Hello world, and welcome to Eddystone!");
                     }
                 });
             }
@@ -91,6 +96,39 @@ public class MainActivity  extends AppCompatActivity implements BeaconConsumer, 
     public void onPause() {
         super.onPause();
         mBeaconManager.unbind(this);
+    }
+
+    public void storeBeacons(BeaconItem beacon){
+        if(beacons.size() >= 3){
+            return;
+        }
+
+        boolean equal = false;
+        for (BeaconItem aux : beacons) {
+            if(beacon.getId() == aux.getId()){
+                aux.setDistance(beacon.getDistance());
+                equal = true;
+            }
+        }
+
+        if(!equal){
+            beacons.add(beacon);
+        }
+        for(BeaconItem aux : beacons){
+            if(beacons.size() == 1){
+                ((TextView)BeaconActivity.this.findViewById(R.id.text1)).setText("I see a beacon transmitting namespace id: " + beacon.getNamespace() +
+                        " and instance id: " + beacon.getId() +
+                        " approximately " + beacon.getDistance() + " meters away.");
+            }else if(beacons.size() == 2){
+                ((TextView)BeaconActivity.this.findViewById(R.id.text2)).setText("I see a beacon transmitting namespace id: " + beacon.getNamespace() +
+                        " and instance id: " + beacon.getId() +
+                        " approximately " + beacon.getDistance() + " meters away.");
+            }else
+                ((TextView)BeaconActivity.this.findViewById(R.id.text3)).setText("I see a beacon transmitting namespace id: " + beacon.getNamespace() +
+                        " and instance id: " + beacon.getId() +
+                        " approximately " + beacon.getDistance() + " meters away.");
+
+        }
     }
 
 }
