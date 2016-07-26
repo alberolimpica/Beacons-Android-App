@@ -8,6 +8,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.nearby.messages.API_KEY"
+            android:value="AIzaSyA06hP9rrmNLp6V3FEqc4OZQGlbjGawlMk" />
         <activity android:name=".BeaconActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

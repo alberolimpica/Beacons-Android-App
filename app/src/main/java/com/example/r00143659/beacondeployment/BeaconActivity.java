@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
@@ -23,7 +24,9 @@ import java.util.List;
 public class BeaconActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
 
     private BeaconManager mBeaconManager;
-    static List<BeaconItem> beacons = new ArrayList<BeaconItem>();
+    static List<BeaconItem> beacons = new ArrayList<>();
+    private ImageView mapView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     }
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+
         for (Beacon beacon: beacons) {
             // You can tell if a beacon is an Eddystone beacon because it will have a serviceUuid of
             // 0xfeaa, and a beaconTypeCode of x00. (For the Eddystone-TLM frame, the beaconTypeCode will be 0x20 and for Eddystone-URL the beaconType code will be 0x10).
@@ -76,16 +80,20 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 // This is a Eddystone-UID frame
                 Identifier namespaceId = beacon.getId1();
                 Identifier instanceId = beacon.getId2();
-                Log.d("RangingActivity", "I see a beacon transmitting namespace id: " + namespaceId +
-                        " and instance id: " + instanceId +
-                        " approximately " + beacon.getDistance() + " meters away.");
+
+//                Log.d("Finding Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
+//                        " and instance id: " + instanceId +
+//                        " approximately " + beacon.getDistance() + " meters away.");
                 final String Id = String.valueOf(instanceId);
                 final String namespace = String.valueOf(namespaceId);
                 final double distance =  beacon.getDistance();
               //  storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
                 runOnUiThread(new Runnable() {
                     public void run() {
+                        Log.d("BeaconActivity", "Este beacon");
                         storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
+
+
                         ((TextView)BeaconActivity.this.findViewById(R.id.message)).setText("Hello world, and welcome to Eddystone!");
                     }
                 });
@@ -108,13 +116,12 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
             if(beacon.getId() == aux.getId()){
                 aux.setDistance(beacon.getDistance());
                 equal = true;
+
             }
         }
 
         if(!equal){
             beacons.add(beacon);
-        }
-        for(BeaconItem aux : beacons){
             if(beacons.size() == 1){
                 ((TextView)BeaconActivity.this.findViewById(R.id.text1)).setText("I see a beacon transmitting namespace id: " + beacon.getNamespace() +
                         " and instance id: " + beacon.getId() +
@@ -128,7 +135,10 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                         " and instance id: " + beacon.getId() +
                         " approximately " + beacon.getDistance() + " meters away.");
 
+
         }
+
+
     }
 
 }
