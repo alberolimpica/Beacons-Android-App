@@ -2,11 +2,14 @@ package com.example.r00143659.beacondeployment;
 
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
@@ -32,6 +35,14 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
+
+        //Android webService rest json
+        //change the app's policies to avoid network exceptions
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        //Service address
+        String URL = "";
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,6 +118,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     }
 
     public void storeBeacons(BeaconItem beacon){
+        List<String> beaconInfo = new ArrayList<String>();
         if(beacons.size() >= 3){
             return;
         }
@@ -122,23 +134,23 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
 
         if(!equal){
             beacons.add(beacon);
-            if(beacons.size() == 1){
-                ((TextView)BeaconActivity.this.findViewById(R.id.text1)).setText("I see a beacon transmitting namespace id: " + beacon.getNamespace() +
-                        " and instance id: " + beacon.getId() +
-                        " approximately " + beacon.getDistance() + " meters away.");
-            }else if(beacons.size() == 2){
-                ((TextView)BeaconActivity.this.findViewById(R.id.text2)).setText("I see a beacon transmitting namespace id: " + beacon.getNamespace() +
-                        " and instance id: " + beacon.getId() +
-                        " approximately " + beacon.getDistance() + " meters away.");
-            }else
-                ((TextView)BeaconActivity.this.findViewById(R.id.text3)).setText("I see a beacon transmitting namespace id: " + beacon.getNamespace() +
-                        " and instance id: " + beacon.getId() +
-                        " approximately " + beacon.getDistance() + " meters away.");
+        }
 
-
+        for (BeaconItem aux : beacons) {
+            String name = aux.getNamespace();
+            String dist = String.valueOf(aux.getDistance());
+            String id = aux.getId();
+            beaconInfo.add("I see a beacon transmitting namespace id: " + name +
+                    " and instance id: " + id +
+                    " approximately " + dist + " meters away.");
         }
 
 
+
+
+        ListView listView = (ListView) findViewById(R.id.listView1);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, beaconInfo);
+        listView.setAdapter(adapter);
     }
 
 }
