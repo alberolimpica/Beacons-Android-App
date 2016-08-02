@@ -1,7 +1,12 @@
 package com.example.r00143659.beacondeployment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -9,6 +14,16 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.messages.Message;
+import com.google.android.gms.nearby.messages.MessageListener;
+import com.google.android.gms.nearby.messages.MessagesOptions;
+import com.google.android.gms.nearby.messages.NearbyPermissions;
+import com.google.android.gms.nearby.messages.Strategy;
+import com.google.android.gms.nearby.messages.SubscribeOptions;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -22,19 +37,108 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class BeaconActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
+public class BeaconActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener  {
 
     private BeaconManager mBeaconManager;
-    static List<BeaconItem> beacons = new ArrayList<>();
-
+    private List<BeaconItem> beacons = new ArrayList<>();
+    private GoogleApiClient mGoogleApiClient;
+    private MessageListener mMessageListener;
+    private static final String TAG = BeaconActivity.class.getSimpleName();
+    private static final int REQUEST_RESOLVE_ERROR = 1001;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
 
+        //Nearby messages API
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addApi(Nearby.MESSAGES_API, new MessagesOptions.Builder()
+                            .setPermissions(NearbyPermissions.BLE)
+                            .build())
+                    .addConnectionCallbacks(this)
+                    .enableAutoManage(this, this)
+                    .build();
+        }
+        mMessageListener = new MessageListener() {
+            @Override
+            public void onFound(Message message) {
+                //When a message is found
+                String messageAsString = new String(message.getContent());
+                Log.d(TAG, "Found message: " + messageAsString);
+            }
+
+            @Override
+            public void onLost(Message message) {
+                //When a message is no longer detectable
+                String messageAsString = new String(message.getContent());
+                Log.d(TAG, "Lost sight of message: " + messageAsString);
+            }
+        };
 
     }
+    private void subscribe() {
+        Log.i(TAG, "Subscribing.");
+        SubscribeOptions options = new SubscribeOptions.Builder()
+                .setStrategy(Strategy.BLE_ONLY)
+                .build();
+        Nearby.Messages.subscribe(mGoogleApiClient, mMessageListener, options);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Log.i(TAG, "GoogleApiClient connected");
+        subscribe();
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        Log.e(TAG, "GoogleApiClient disconnected with cause: " + cause);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        if (result.hasResolution()) {
+            try {
+                result.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.e(TAG, "GoogleApiClient connection failed");
+        }
+    }
+
+    @Override
+    public void onStop() {
+
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+        super.onStop();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_RESOLVE_ERROR) {
+            if (resultCode == RESULT_OK) {
+                mGoogleApiClient.connect();
+            } else {
+                Log.e(TAG, "GoogleApiClient connection failed. Unable to resolve.");
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -140,6 +244,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, beaconInfo);
         listView.setAdapter(adapter);
     }
+
 
 }
 
