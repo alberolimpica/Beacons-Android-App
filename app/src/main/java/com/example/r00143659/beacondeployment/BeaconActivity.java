@@ -69,6 +69,10 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 //When a message is found
                 String messageAsString = new String(message.getContent());
                 Log.d(TAG, "Found message: " + messageAsString);
+                Log.i(TAG, "Message found: " + message);
+                Log.i(TAG, "Message string: " + new String(message.getContent()));
+                Log.i(TAG, "Message namespaced type: " + message.getNamespace() +
+                        "/" + message.getType());
             }
 
             @Override
