@@ -2,13 +2,11 @@ package com.example.r00143659.beacondeployment;
 
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,7 +26,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
 
     private BeaconManager mBeaconManager;
     static List<BeaconItem> beacons = new ArrayList<>();
-    private ImageView mapView;
 
 
     @Override
@@ -36,12 +33,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
 
-        //Android webService rest json
-        //change the app's policies to avoid network exceptions
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        //Service address
-        String URL = "";
 
     }
     @Override
@@ -144,9 +135,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                     " and instance id: " + id +
                     " approximately " + dist + " meters away.");
         }
-
-
-
 
         ListView listView = (ListView) findViewById(R.id.listView1);
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, beaconInfo);
