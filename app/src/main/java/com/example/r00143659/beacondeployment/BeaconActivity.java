@@ -45,6 +45,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     private GoogleApiClient mGoogleApiClient;
     private MessageListener mMessageListener;
     private static final String TAG = BeaconActivity.class.getSimpleName();
+    private  Message mActiveMessage;
     private static final int REQUEST_RESOLVE_ERROR = 1001;
 
     @Override
@@ -62,6 +63,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                     .addConnectionCallbacks(this)
                     .enableAutoManage(this, this)
                     .build();
+            Log.i(TAG, "API");
         }
         mMessageListener = new MessageListener() {
             @Override
@@ -91,15 +93,32 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 .build();
         Nearby.Messages.subscribe(mGoogleApiClient, mMessageListener, options);
     }
-
+    private void unsuscribe(){
+        Log.i(TAG, "Unsuscribing");
+        Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
+    }
+    private void publish (String message){
+        Log.i(TAG, "Publishing message: "+message);
+        mActiveMessage = new Message(message.getBytes());
+        Nearby.Messages.publish(mGoogleApiClient , mActiveMessage);
+    }
+    private void unpublish(){
+        Log.i(TAG, "Unbublishing");
+        if(mActiveMessage != null){
+            Nearby.Messages.unpublish(mGoogleApiClient, mActiveMessage);
+            mActiveMessage = null;
+        }
+    }
     @Override
     public void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+        Log.i(TAG, "onStart");
     }
 
     @Override
     public void onConnected(Bundle connectionHint) {
+        publish("Hello world");
         Log.i(TAG, "GoogleApiClient connected");
         subscribe();
     }
@@ -124,11 +143,13 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
 
     @Override
     public void onStop() {
-
+        unpublish();
+        unsuscribe();
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
         super.onStop();
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -160,12 +181,9 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_settings){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
     @Override
     public void onBeaconServiceConnect(){
@@ -218,9 +236,9 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
 
     public void storeBeacons(BeaconItem beacon){
         List<String> beaconInfo = new ArrayList<String>();
-        if(beacons.size() >= 3){
-            return;
-        }
+//        if(beacons.size() >= 3){
+//            return;
+//        }
 
         boolean equal = false;
         for (BeaconItem aux : beacons) {
@@ -245,7 +263,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         }
 
         ListView listView = (ListView) findViewById(R.id.listView1);
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, beaconInfo);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, beaconInfo);
         listView.setAdapter(adapter);
     }
 
