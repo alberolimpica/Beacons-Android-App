@@ -6,6 +6,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,12 +18,15 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 import com.google.android.gms.nearby.messages.MessagesOptions;
 import com.google.android.gms.nearby.messages.NearbyPermissions;
 import com.google.android.gms.nearby.messages.Strategy;
+import com.google.android.gms.nearby.messages.SubscribeCallback;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
 
 import org.altbeacon.beacon.Beacon;
@@ -45,8 +49,9 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     private GoogleApiClient mGoogleApiClient;
     private MessageListener mMessageListener;
     private static final String TAG = BeaconActivity.class.getSimpleName();
-    private  Message mActiveMessage;
+
     private static final int REQUEST_RESOLVE_ERROR = 1001;
+    private ArrayAdapter<String> mNearbyDevicesArrayAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,18 +68,21 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                     .addConnectionCallbacks(this)
                     .enableAutoManage(this, this)
                     .build();
-            Log.i(TAG, "API");
+            Log.i(TAG, "API connected");
         }
         mMessageListener = new MessageListener() {
+
             @Override
             public void onFound(Message message) {
-                //When a message is found
                 String messageAsString = new String(message.getContent());
                 Log.d(TAG, "Found message: " + messageAsString);
-                Log.i(TAG, "Message found: " + message);
+                //When a message is found
+                Log.i(TAG, "Message found: " + message.toString());
                 Log.i(TAG, "Message string: " + new String(message.getContent()));
                 Log.i(TAG, "Message namespaced type: " + message.getNamespace() +
                         "/" + message.getType());
+                mNearbyDevicesArrayAdapter.add(DeviceMessage.fromNearbyMessage(message).getMessageBody());
+
             }
 
             @Override
@@ -82,33 +90,46 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 //When a message is no longer detectable
                 String messageAsString = new String(message.getContent());
                 Log.d(TAG, "Lost sight of message: " + messageAsString);
+                mNearbyDevicesArrayAdapter.remove(DeviceMessage.fromNearbyMessage(message).getMessageBody());
             }
         };
-
+        final List<String> nearbyDevicesArrayList = new ArrayList<>();
+        mNearbyDevicesArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nearbyDevicesArrayList);
+        final ListView nearbyDevicesListView = (ListView) findViewById(R.id.nearby_devices_list_view);
+        if (nearbyDevicesListView != null){
+            nearbyDevicesListView.setAdapter(mNearbyDevicesArrayAdapter);
+        }
     }
     private void subscribe() {
         Log.i(TAG, "Subscribing.");
         SubscribeOptions options = new SubscribeOptions.Builder()
                 .setStrategy(Strategy.BLE_ONLY)
+                .setCallback(new SubscribeCallback() {
+                    @Override
+                    public void onExpired() {
+                        super.onExpired();
+                        Log.i(TAG, "No longer subscribing");
+                    }
+                })
                 .build();
-        Nearby.Messages.subscribe(mGoogleApiClient, mMessageListener, options);
+        Nearby.Messages.subscribe(mGoogleApiClient, mMessageListener, options)
+                .setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        if (status.isSuccess()){
+                            Log.i(TAG, "Subscibed succesfully");
+                        }else{
+                            Log.i(TAG, "Could not subscribe");
+                        }
+                    }
+                });
+
     }
     private void unsuscribe(){
         Log.i(TAG, "Unsuscribing");
         Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
     }
-    private void publish (String message){
-        Log.i(TAG, "Publishing message: "+message);
-        mActiveMessage = new Message(message.getBytes());
-        Nearby.Messages.publish(mGoogleApiClient , mActiveMessage);
-    }
-    private void unpublish(){
-        Log.i(TAG, "Unbublishing");
-        if(mActiveMessage != null){
-            Nearby.Messages.unpublish(mGoogleApiClient, mActiveMessage);
-            mActiveMessage = null;
-        }
-    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -118,7 +139,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        publish("Hello world");
+
         Log.i(TAG, "GoogleApiClient connected");
         subscribe();
     }
@@ -143,7 +164,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
 
     @Override
     public void onStop() {
-        unpublish();
+
         unsuscribe();
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
