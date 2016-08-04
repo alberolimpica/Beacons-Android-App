@@ -81,8 +81,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 Log.i(TAG, "Message string: " + new String(message.getContent()));
                 Log.i(TAG, "Message namespaced type: " + message.getNamespace() +
                         "/" + message.getType());
-                mNearbyDevicesArrayAdapter.add(DeviceMessage.fromNearbyMessage(message).getMessageBody());
-
             }
 
             @Override
@@ -90,15 +88,9 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 //When a message is no longer detectable
                 String messageAsString = new String(message.getContent());
                 Log.d(TAG, "Lost sight of message: " + messageAsString);
-                mNearbyDevicesArrayAdapter.remove(DeviceMessage.fromNearbyMessage(message).getMessageBody());
             }
         };
-        final List<String> nearbyDevicesArrayList = new ArrayList<>();
-        mNearbyDevicesArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nearbyDevicesArrayList);
-        final ListView nearbyDevicesListView = (ListView) findViewById(R.id.nearby_devices_list_view);
-        if (nearbyDevicesListView != null){
-            nearbyDevicesListView.setAdapter(mNearbyDevicesArrayAdapter);
-        }
+
     }
     private void subscribe() {
         Log.i(TAG, "Subscribing.");
