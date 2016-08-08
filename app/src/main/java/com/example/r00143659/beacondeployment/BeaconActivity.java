@@ -1,9 +1,12 @@
 package com.example.r00143659.beacondeployment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
@@ -51,8 +54,21 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     private static final String TAG = BeaconActivity.class.getSimpleName();
 
     private static final int REQUEST_RESOLVE_ERROR = 1001;
-    private ArrayAdapter<String> mNearbyDevicesArrayAdapter;
+    //This is a new addition, and in onStart the if() is one too
+    private static int[] NETWORK_TYPES = {ConnectivityManager.TYPE_WIFI, ConnectivityManager.TYPE_ETHERNET};
 
+    private boolean isConnectedToNetwork() {
+        ConnectivityManager connManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        for (int networkType : NETWORK_TYPES) {
+            NetworkInfo info = connManager.getNetworkInfo(networkType);
+            if (info != null && info.isConnectedOrConnecting()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,8 +141,12 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     @Override
     public void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+        if( isConnectedToNetwork()){
+            if (!mGoogleApiClient.isConnected()) {
+                mGoogleApiClient.connect();
+            }
         Log.i(TAG, "onStart");
+        }
     }
 
     @Override

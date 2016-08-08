@@ -3,6 +3,7 @@
         package="com.example.r00143659.beacondeployment">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
@@ -13,7 +14,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
-            android:value="AIzaSyA06hP9rrmNLp6V3FEqc4OZQGlbjGawlMk" />
+            android:value="AIzaSyD-6DI5K59ipuuOMqxFO-2sfFiR4f0S1Pk" />
         <activity android:name=".BeaconActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
