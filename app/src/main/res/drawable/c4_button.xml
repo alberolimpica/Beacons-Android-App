@@ -2,9 +2,10 @@
 
 <shape android:shape="ring"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:innerRadiusRatio="8"
-    android:thicknessRatio="8"
+    android:innerRadiusRatio="3"
+    android:thickness="25dp"
     android:useLevel="false">
-    <solid android:color="#8DE7EF"/>
+
+    <solid android:color="@color/common_plus_signin_btn_text_light_default"/>
 
 </shape>
