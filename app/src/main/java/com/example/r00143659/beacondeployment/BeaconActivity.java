@@ -300,7 +300,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         listView.setAdapter(adapter);
     }
 
-
 }
 
 

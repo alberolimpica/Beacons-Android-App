@@ -4,4 +4,6 @@
     <string name="action_settings">Settings</string>
     <string name="beacon_finder">Beacon Finder!</string>
     <string name="medical_centre">Medical Centre</string>
+    <string name="treasure_hunting">Treasure hunting</string>
+    <string name="find_beacons">Find beacons</string>
 </resources>

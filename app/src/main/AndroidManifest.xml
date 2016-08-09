@@ -15,13 +15,19 @@
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyD-6DI5K59ipuuOMqxFO-2sfFiR4f0S1Pk" />
-        <activity android:name=".BeaconActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BeaconActivity" >
+        </activity>
+
+        <activity android:name=".TreasureHunting" >
+        </activity>
+
     </application>
 
 </manifest>
