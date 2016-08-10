@@ -6,4 +6,5 @@
     <string name="medical_centre">Medical Centre</string>
     <string name="treasure_hunting">Treasure hunting</string>
     <string name="find_beacons">Find beacons</string>
+    <string name="select">Select from one of those:</string>
 </resources>

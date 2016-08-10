@@ -1,31 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/widget30"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context=".MainActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*"
+    tools:context=".MainActivity"
+    android:transcriptMode="alwaysScroll">
 
-    <ImageView style="@style/Image1"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/imageView" />
+    <TableRow
+        android:layout_weight="1">
 
-    <ImageView style="@style/Image2"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/widget37"
-        android:src="@drawable/ic_local_hospital_black_24dp"/>
+            <ImageView style="@style/Image"
 
-    <TextView
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_height="match_parent"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/medical_centre"
-        android:id="@+id/textView"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+                android:src="@drawable/medical_centre"/>
+        <ImageView style="@style/Image"
 
-</RelativeLayout>
+            android:src="@drawable/it_service"/>
+
+    </TableRow>
+    <TableRow>
+
+        <ImageView style="@style/Image"
+
+            android:src="@drawable/cardoffice"/>
+        <ImageView style="@style/Image"
+
+            android:src="@drawable/library"/>
+
+    </TableRow>
+    <TableRow>
+
+        <ImageView style="@style/Image"
+
+            android:src="@drawable/boi"/>
+        <ImageView style="@style/Image"
+
+            android:src="@drawable/bus"/>
+
+    </TableRow>
+
+
+
+</TableLayout>

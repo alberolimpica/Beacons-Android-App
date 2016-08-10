@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 /**
- * Created by R00143659 on 09/08/2016.
+ * Treasure hunting activity. Here the stamps will be shown.
  */
 public class TreasureHunting extends Activity {
 

@@ -7,14 +7,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="Image1">
-        <item name="android:layout_width">300dp</item>
-        <item name="android:layout_height">300dp</item>
-        <item name="android:src">@drawable/c4_button</item>
-    </style>
-    <style name="Image2">
-        <item name="android:layout_width">200dp</item>
-        <item name="android:layout_height">200dp</item>
+    <style name="Image">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>    </style>
+    <style name="Text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+
     </style>
 
 </resources>
