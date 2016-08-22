@@ -1,6 +1,5 @@
 package com.example.r00143659.beacondeployment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +12,7 @@ import android.widget.Button;
  * Here, we will see two buttons to choose between finding a beacon or treasure hunting
  */
 public class MainActivity extends AppCompatActivity {
-    Button button1, button2;
+    Button button1, button2, button3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         // Locate the button in activity_main.xml
         button1 = (Button) findViewById(R.id.MyButton1);
         button2 = (Button) findViewById(R.id.MyButton2);
+        button3 = (Button) findViewById(R.id.CitButton);
 
         // Capture button clicks
         button1.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this,
                         TreasureHunting.class);
+                startActivity(myIntent);
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(MainActivity.this,
+                        CIT_Services.class);
                 startActivity(myIntent);
             }
         });

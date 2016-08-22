@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="20pt">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/select"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/mycit_web"
+            android:onClick="mycitweb"
+            android:text="myCIT WEB"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/cit_logo"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/blackboard"
+            android:onClick="blackboard"
+            android:text="BLACKBOARD"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/blackboard"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/cardtopup"
+            android:onClick="cardtopup"
+            android:text="CARD TOP UP"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/cardtopup"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/exampapers"
+            android:onClick="exampapers"
+            android:text="EXAM PAPERS"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/exampapers"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/examtimetable"
+            android:onClick="examtimetable"
+            android:text="EXAM TIMETABLES"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/examtimetable"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/library"
+            android:onClick="library"
+            android:text="LIBRARY"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/library"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/studentemail"
+            android:onClick="studentemail"
+            android:text="STUDENT E-MAIL"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/studentemail"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/timetables"
+            android:onClick="timetables"
+            android:text="TIMETABLES"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/timetables"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/web4students"
+            android:onClick="web4students"
+            android:text="WEB FOR STUDENTS"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/web4students"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -47,6 +47,7 @@ import java.util.List;
 public class BeaconActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener  {
 
+
     private BeaconManager mBeaconManager;
     private List<BeaconItem> beacons = new ArrayList<>();
     private GoogleApiClient mGoogleApiClient;
@@ -133,10 +134,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 });
 
     }
-    private void unsuscribe(){
-        Log.i(TAG, "Unsuscribing");
-        Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
-    }
 
     @Override
     public void onStart() {
@@ -151,7 +148,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
 
     @Override
     public void onConnected(Bundle connectionHint) {
-
         Log.i(TAG, "GoogleApiClient connected");
         subscribe();
     }
@@ -173,17 +169,22 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
             Log.e(TAG, "GoogleApiClient connection failed");
         }
     }
-
+    private void unsubscribe(){
+        Log.i(TAG, "Unsusbcribing");
+        if (mGoogleApiClient.isConnected()) {
+            Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
+        }
+    }
     @Override
     public void onStop() {
-
-        unsuscribe();
+            unsubscribe();
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
         super.onStop();
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_RESOLVE_ERROR) {

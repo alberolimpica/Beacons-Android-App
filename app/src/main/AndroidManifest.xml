@@ -15,17 +15,26 @@
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyD-6DI5K59ipuuOMqxFO-2sfFiR4f0S1Pk" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BeaconActivity" >
+        <activity android:name=".BeaconActivity"
+            android:label="Beacon activity"
+            android:configChanges="orientation|screenSize">
         </activity>
 
-        <activity android:name=".TreasureHunting" >
+        <activity android:name=".TreasureHunting"
+            android:label="Treasure hunting"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".CIT_Services"
+            android:label="CIT Services"
+            android:configChanges="orientation|screenSize">
         </activity>
 
     </application>
