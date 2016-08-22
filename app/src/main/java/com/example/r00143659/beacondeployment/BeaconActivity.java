@@ -254,8 +254,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                     public void run() {
                         Log.d("BeaconActivity", "Este beacon");
                         storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
-
-
                         ((TextView)BeaconActivity.this.findViewById(R.id.message)).setText("Hello world, and welcome to Eddystone!");
                     }
                 });
@@ -301,8 +299,5 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         listView.setAdapter(adapter);
     }
 
+
 }
-
-
-
-

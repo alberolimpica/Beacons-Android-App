@@ -28,7 +28,7 @@
             android:configChanges="orientation|screenSize">
         </activity>
 
-        <activity android:name=".TreasureHunting"
+        <activity android:name=".BeaconsSquare"
             android:label="Treasure hunting"
             android:configChanges="orientation|screenSize">
         </activity>
