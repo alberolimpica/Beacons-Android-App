@@ -3,6 +3,8 @@
         package="com.example.r00143659.beacondeployment">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.PERMISSION_REQUEST_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
@@ -24,12 +26,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".BeaconActivity"
-            android:label="Beacon activity"
+            android:label="Find beacons"
             android:configChanges="orientation|screenSize">
         </activity>
 
-        <activity android:name=".BeaconsSquare"
+        <activity android:name=".TreasureHunting"
             android:label="Treasure hunting"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:configChanges="orientation|screenSize">
         </activity>
         <activity android:name=".CIT_Services"

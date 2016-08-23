@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this,
-                        BeaconsSquare.class);
+                        TreasureHunting.class);
                 startActivity(myIntent);
             }
         });

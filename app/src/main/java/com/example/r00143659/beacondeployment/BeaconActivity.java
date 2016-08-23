@@ -40,6 +40,7 @@ import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -285,13 +286,15 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
             beacons.add(beacon);
         }
 
+
         for (BeaconItem aux : beacons) {
             String name = aux.getNamespace();
             String dist = String.valueOf(aux.getDistance());
-            String id = aux.getId();
-            beaconInfo.add("I see a beacon transmitting namespace id: " + name +
-                    " and instance id: " + id +
-                    " approximately " + dist + " meters away.");
+            double distance = Double.parseDouble(dist);
+            distance =Double.parseDouble(new DecimalFormat("##.##").format(distance));
+            //String id = aux.getId();
+            beaconInfo.add("Beacon: " + name+
+                    " - " + distance + " meters");
         }
 
         ListView listView = (ListView) findViewById(R.id.listView1);

@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:stretchColumns="*"
-    tools:context=".MainActivity"
     android:transcriptMode="alwaysScroll">
 
     <TableRow
         android:layout_weight="1">
 
-            <ImageView style="@style/Image"
+        <ImageView style="@style/Image"
 
-                android:src="@drawable/medical_centre"/>
+            android:src="@drawable/medical_centre"/>
         <ImageView style="@style/Image"
 
             android:src="@drawable/it_service"/>
