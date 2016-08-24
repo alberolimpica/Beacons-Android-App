@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="20pt">
+    android:layout_marginBottom="10pt">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -30,6 +30,24 @@
             android:text="myCIT WEB"
             android:background="@android:color/transparent"
             android:drawableLeft="@mipmap/cit_logo"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/societies"
+            android:onClick="societies"
+            android:text="SOCIETIES"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@mipmap/societies"/>
     </LinearLayout>
 
     <LinearLayout
