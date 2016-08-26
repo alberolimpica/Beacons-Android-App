@@ -33,12 +33,12 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.treasure);
 
-        button1 = (ImageButton) findViewById(R.id.medical_centre);
-        button2 = (ImageButton) findViewById(R.id.it_service);
-        button3 = (ImageButton) findViewById(R.id.card_office);
-        button4 = (ImageButton) findViewById(R.id.library);
-        button5 = (ImageButton) findViewById(R.id.boi);
-        button6 = (ImageButton) findViewById(R.id.bus_stop);
+        button1 = (ImageButton) findViewById(R.id.medcen);
+        button2 = (ImageButton) findViewById(R.id.itser);
+        button3 = (ImageButton) findViewById(R.id.cardoff);
+        button4 = (ImageButton) findViewById(R.id.libr);
+        button5 = (ImageButton) findViewById(R.id.bank);
+        button6 = (ImageButton) findViewById(R.id.busstop);
 
 //        button1.setOnClickListener(this);
 //        button2.setOnClickListener(this);
@@ -53,22 +53,22 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
     public void paintButton(int modifierId, int colorRes){
         ImageButton button = null;
         switch(modifierId){
-            case R.id.medical_centre:
+            case R.id.medcen:
                 button = button1;
                 break;
-            case R.id.it_service:
+            case R.id.itser:
                 button = button2;
                 break;
-            case R.id.card_office:
+            case R.id.cardoff:
                 button = button3;
                 break;
-            case R.id.library:
+            case R.id.libr:
                 button = button4;
                 break;
-            case R.id.boi:
+            case R.id.bank:
                 button = button5;
                 break;
-            case R.id.bus_stop:
+            case R.id.busstop:
                 button = button6;
                 break;
         }
@@ -149,12 +149,12 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
     public void distance(double distance){
         if(distance >= 70.00 ){
-            paintButton(R.id.medical_centre,android.R.color.holo_red_dark );
+            paintButton(R.id.medcen,android.R.color.holo_red_dark );
         }else if(10.00 <= distance&& distance < 70.00){
-            paintButton(R.id.medical_centre,android.R.color.holo_orange_light );
+            paintButton(R.id.medcen,android.R.color.holo_orange_light );
 
         }else if(distance<10){
-            paintButton(R.id.medical_centre,android.R.color.holo_green_dark );
+            paintButton(R.id.medcen,android.R.color.holo_green_dark );
         }
     }
     @Override

@@ -22,28 +22,28 @@
 
        <ImageButton
            style="@style/Image"
-           android:id="@+id/medical_centre"
+           android:id="@+id/medcen"
            android:src="@drawable/medical_centre"/>
        <ImageButton
            style="@style/Image"
-           android:id="@+id/it_service"
+           android:id="@+id/itser"
            android:src="@drawable/it_service"
-           android:layout_below="@+id/medical_centre"/>
+           android:layout_below="@+id/medcen"/>
        <ImageButton style="@style/Image"
-           android:id="@+id/card_office"
+           android:id="@+id/cardoff"
            android:src="@drawable/cardoffice"
-           android:layout_below="@+id/it_service"/>
+           android:layout_below="@+id/itser"/>
        <ImageButton style="@style/Image"
-           android:id="@+id/library"
+           android:id="@+id/libr"
            android:src="@drawable/library"
-           android:layout_below="@+id/card_office"/>
+           android:layout_below="@+id/cardoff"/>
        <ImageButton style="@style/Image"
-           android:id="@+id/boi"
+           android:id="@+id/bank"
            android:src="@drawable/boi"
-           android:layout_below="@+id/library"/>
+           android:layout_below="@+id/libr"/>
        <ImageButton style="@style/Image"
-           android:id="@+id/bus_stop"
+           android:id="@+id/busstop"
            android:src="@drawable/bus"
-           android:layout_below="@+id/boi"/>
+           android:layout_below="@+id/bank"/>
     </RelativeLayout>
 </ScrollView>
