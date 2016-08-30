@@ -1,32 +1,9 @@
-<layer-list xmlns:tools="http://schemas.android.com/tools"
-xmlns:android="http://schemas.android.com/apk/res/android">
-<item
-    android:top="4dp"
-    android:right="4dp"
-    android:bottom="4dp"
-    android:left="4dp"
-    tools:targetApi="lollipop">
-    <shape
-        android:shape="oval">
-
-        <stroke android:width="10dp"
-            android:color="#4d4d4d"/>
-    </shape>
-</item>
-<item
-    android:top="4dp"
-    android:right="4dp"
-    android:bottom="4dp"
-    android:left="10dp">
     <vector xmlns:android="http://schemas.android.com/apk/res/android"
         android:width="140dp"
         android:height="140dp"
         android:viewportWidth="50.0"
-        android:viewportHeight="50.0"
-        tools:targetApi="lollipop">
+        android:viewportHeight="50.0">
         <path
             android:fillColor="@color/common_plus_signin_btn_text_light_default"
             android:pathData="M24,23.09C19.27,18.7 12.96,16 6,16v22c6.96,0 13.27,2.7 18,7.09C28.73,40.7 35.04,38 42,38V16c-6.96,0 -13.27,2.7 -18,7.09zM24,16c3.31,0 6,-2.69 6,-6s-2.69,-6 -6,-6 -6,2.69 -6,6 2.69,6 6,6z"/>
     </vector>
-</item>
-</layer-list>

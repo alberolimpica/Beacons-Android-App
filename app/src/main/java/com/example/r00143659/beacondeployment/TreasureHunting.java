@@ -101,20 +101,20 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         // Detect the main Eddystone-UID frame:
         mBeaconManager.getBeaconParsers().add(new BeaconParser().
                 //setBeaconLayout helps to decode an Eddystone frame
-                setBeaconLayout("s:0-1=feaa,m:2-2=00,p:3-3:-41,i:4-13,i:14-19"));
-       //To bind the app to the scanning service to start scanning beacons:
+                        setBeaconLayout("s:0-1=feaa,m:2-2=00,p:3-3:-41,i:4-13,i:14-19"));
+        //To bind the app to the scanning service to start scanning beacons:
         mBeaconManager.bind(this);
     }
 
-  public void onBeaconServiceConnect() {
-      //We set a pattern of which beacons are we interested
+    public void onBeaconServiceConnect() {
+        //We set a pattern of which beacons are we interested
         Region region = new Region("all-beacons-region", null, null, null);
         try {
             mBeaconManager.startRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-      //To get callbacks each time a beacon is found
+        //To get callbacks each time a beacon is found
         mBeaconManager.setRangeNotifier(this);
     }
 

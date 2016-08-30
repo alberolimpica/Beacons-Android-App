@@ -14,36 +14,32 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
-        <TextView
-            android:text="@string/hello_world"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/message"/>
 
-       <ImageButton
-           style="@style/Image"
-           android:id="@+id/medcen"
-           android:src="@drawable/medical_centre"/>
-       <ImageButton
-           style="@style/Image"
-           android:id="@+id/itser"
-           android:src="@drawable/it_service"
-           android:layout_below="@+id/medcen"/>
-       <ImageButton style="@style/Image"
-           android:id="@+id/cardoff"
-           android:src="@drawable/cardoffice"
-           android:layout_below="@+id/itser"/>
-       <ImageButton style="@style/Image"
-           android:id="@+id/libr"
-           android:src="@drawable/library"
-           android:layout_below="@+id/cardoff"/>
-       <ImageButton style="@style/Image"
-           android:id="@+id/bank"
-           android:src="@drawable/boi"
-           android:layout_below="@+id/libr"/>
-       <ImageButton style="@style/Image"
-           android:id="@+id/busstop"
-           android:src="@drawable/bus"
-           android:layout_below="@+id/bank"/>
+
+        <ImageButton
+            style="@style/Image"
+            android:id="@+id/medcen"
+            android:src="@drawable/medical_centre"/>
+        <ImageButton
+            style="@style/Image"
+            android:id="@+id/itser"
+            android:src="@drawable/it_service"
+            android:layout_below="@+id/medcen"/>
+        <ImageButton style="@style/Image"
+            android:id="@+id/cardoff"
+            android:src="@drawable/cardoffice"
+            android:layout_below="@+id/itser"/>
+        <ImageButton style="@style/Image"
+            android:id="@+id/libr"
+            android:src="@drawable/library"
+            android:layout_below="@+id/cardoff"/>
+        <ImageButton style="@style/Image"
+            android:id="@+id/bank"
+            android:src="@drawable/boi"
+            android:layout_below="@+id/libr"/>
+        <ImageButton style="@style/Image"
+            android:id="@+id/busstop"
+            android:src="@drawable/bus"
+            android:layout_below="@+id/bank"/>
     </RelativeLayout>
 </ScrollView>
