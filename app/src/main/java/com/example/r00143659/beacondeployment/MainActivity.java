@@ -3,9 +3,13 @@ package com.example.r00143659.beacondeployment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Main Activity of the app.
@@ -19,6 +23,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Get the view from activity_main.xml
         setContentView(R.layout.activity_main);
+
+        Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
+
+        Log.e("sss", "onCreate: "+ Realm.getDefaultInstance().where(THProximity.class).findAll() );
+
+        THProximity toSave = new THProximity();
+        toSave.setId("Beacons");
 
         // Locate the button in activity_main.xml
         button1 = (Button) findViewById(R.id.MyButton1);

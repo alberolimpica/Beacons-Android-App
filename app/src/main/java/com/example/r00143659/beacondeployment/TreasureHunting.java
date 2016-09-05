@@ -137,7 +137,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        distance(finalDistance);
+                        updateProximity(Id, finalDistance);
                     }
                 });
 
@@ -147,16 +147,18 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void distance(double distance){
-        if(distance >= 70.00 ){
-            paintButton(R.id.medcen,android.R.color.holo_red_dark );
-        }else if(10.00 <= distance&& distance < 70.00){
-            paintButton(R.id.medcen,android.R.color.holo_orange_light );
+//    public void distance(double distance){
+//        if(distance >= 70.00 ){
+//            paintButton(R.id.medcen,android.R.color.holo_red_dark );
+//        }else if(10.00 <= distance&& distance < 70.00){
+//            paintButton(R.id.medcen,android.R.color.holo_orange_light );
+//
+//        }else if(distance<10){
+//            paintButton(R.id.medcen,android.R.color.holo_green_dark );
+//        }
+//    }
 
-        }else if(distance<10){
-            paintButton(R.id.medcen,android.R.color.holo_green_dark );
-        }
-    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -179,4 +181,24 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+
+    private void updateProximity(String id, double distance){
+        int status = THProximity.NONE;
+        if(distance > 40)
+            status = THProximity.RED;
+        if(40 > distance && distance > 10)
+            status = THProximity.YELLOW;
+        if(distance < 10)
+            status = THProximity.GREEN;
+
+        THProximity itemDB = DataManager.findOne(id);
+        if(itemDB == null)
+            itemDB = new THProximity();
+
+        itemDB.setStatus(status);
+        DataManager.save(itemDB);
+
+    }
+    // TODO ESTO ES SOLO UN EJEMPLO DE COMO HACER LA LLAMADA
+// TODO updateProximity(beacon.getId2().toString());
 }
