@@ -214,12 +214,10 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
             Log.e("sss", "matchId: este color por distancia");
         }
         if(40 > distance && distance > 10) {
-
             paintButton(id, android.R.color.holo_orange_light);
             status = THProximity.YELLOW;
         }
         if(distance < 10) {
-
             paintButton(id, android.R.color.holo_green_dark);
             status = THProximity.GREEN;
         }
