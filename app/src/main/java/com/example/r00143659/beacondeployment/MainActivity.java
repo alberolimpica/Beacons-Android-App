@@ -1,5 +1,6 @@
 package com.example.r00143659.beacondeployment;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import io.realm.RealmConfiguration;
  * Here, we will see two buttons to choose between finding a beacon or treasure hunting
  */
 public class MainActivity extends AppCompatActivity {
+    private final static int REQUEST_ENABLE_BT=1;
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     Button button1, button2, button3;
 
     @Override
@@ -23,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Get the view from activity_main.xml
         setContentView(R.layout.activity_main);
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
 
         Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
 

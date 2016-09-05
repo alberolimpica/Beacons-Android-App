@@ -184,12 +184,18 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
     private void updateProximity(String id, double distance){
         int status = THProximity.NONE;
-        if(distance > 40)
+        if(distance > 40){
             status = THProximity.RED;
-        if(40 > distance && distance > 10)
+            paintButton(R.id.medcen,android.R.color.holo_red_dark );
+        }
+        if(40 > distance && distance > 10) {
             status = THProximity.YELLOW;
-        if(distance < 10)
+            paintButton(R.id.medcen, android.R.color.holo_orange_light);
+        }
+        if(distance < 10) {
             status = THProximity.GREEN;
+            paintButton(R.id.medcen, android.R.color.holo_green_dark);
+        }
 
         THProximity itemDB = DataManager.findOne(id);
         if(itemDB == null)
@@ -199,6 +205,4 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         DataManager.save(itemDB);
 
     }
-    // TODO ESTO ES SOLO UN EJEMPLO DE COMO HACER LA LLAMADA
-// TODO updateProximity(beacon.getId2().toString());
 }
