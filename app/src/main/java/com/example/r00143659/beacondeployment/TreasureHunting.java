@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -55,6 +56,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         switch(modifierId){
             case R.id.medcen:
                 button = button1;
+                Log.e("sss", "matchId: pintando");
                 break;
             case R.id.itser:
                 button = button2;
@@ -85,10 +87,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-
-
     }
-
 
     private BeaconManager mBeaconManager;
 
@@ -133,16 +132,16 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
                 final String Id = String.valueOf(instanceId);
                 final String namespace = String.valueOf(namespaceId);
                 final double finalDistance = distance;
+                Log.e("sss", "didRangeBeaconsInRegion: "+Id );
+                Log.e("sss", "didRangeBeaconsInRegion: "+namespace );
                 //Only the original thread that created a view hierarchy can touch its views:
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        updateProximity(Id, finalDistance);
+                        int newId = matchId(namespace);
+                        updateProximity(namespace, newId, finalDistance);
                     }
                 });
-
-
-
             }
         }
     }
@@ -182,30 +181,54 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 //        return super.onOptionsItemSelected(item);
 //    }
 
-    private void updateProximity(String id, double distance){
-        int status = THProximity.NONE;
-        if(distance > 40){
+    private int matchId(String id){
+        int newId = 0;
 
-            paintButton(R.id.medcen,android.R.color.holo_red_dark );
+        if(id.contains("0x29c7451088e8")){
+            newId = R.id.medcen;
+            Log.e("sss", "matchId: medcen");
+        }
+        if(id.contains("badc4d168877")){
+            newId = R.id.itser;
+        }
+        if(id.contains("3380475fa920")) {
+            newId = R.id.cardoff;
+        }
+        if( id.contains("89c641c7b59b")) {
+            newId = R.id.libr;
+        }
+//            case id.contains("3380475fa920"):
+//                newId = R.id.bank;
+//                break;
+//            case id.contains("3380475fa920"):
+//                newId = R.id.busstop;
+//                break;
+        return newId;
+    }
+
+    private void updateProximity(String namespace, int id, double distance){
+        int status = THProximity.NONE;
+        if(distance > 40 ){
+            paintButton(id,android.R.color.holo_red_dark );
             status = THProximity.RED;
+            Log.e("sss", "matchId: este color por distancia");
         }
         if(40 > distance && distance > 10) {
 
-            paintButton(R.id.medcen, android.R.color.holo_orange_light);
+            paintButton(id, android.R.color.holo_orange_light);
             status = THProximity.YELLOW;
         }
         if(distance < 10) {
 
-            paintButton(R.id.medcen, android.R.color.holo_green_dark);
+            paintButton(id, android.R.color.holo_green_dark);
             status = THProximity.GREEN;
         }
 
-        THProximity itemDB = DataManager.findOne(id);
+        THProximity itemDB = DataManager.findOne(namespace);
         if(itemDB == null)
             itemDB = new THProximity();
 
         itemDB.setStatus(status);
         DataManager.save(itemDB);
-
     }
 }
