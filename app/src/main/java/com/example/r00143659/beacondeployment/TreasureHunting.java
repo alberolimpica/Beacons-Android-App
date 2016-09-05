@@ -185,16 +185,19 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
     private void updateProximity(String id, double distance){
         int status = THProximity.NONE;
         if(distance > 40){
-            status = THProximity.RED;
+
             paintButton(R.id.medcen,android.R.color.holo_red_dark );
+            status = THProximity.RED;
         }
         if(40 > distance && distance > 10) {
-            status = THProximity.YELLOW;
+
             paintButton(R.id.medcen, android.R.color.holo_orange_light);
+            status = THProximity.YELLOW;
         }
         if(distance < 10) {
-            status = THProximity.GREEN;
+
             paintButton(R.id.medcen, android.R.color.holo_green_dark);
+            status = THProximity.GREEN;
         }
 
         THProximity itemDB = DataManager.findOne(id);
