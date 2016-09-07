@@ -19,7 +19,7 @@ import io.realm.RealmConfiguration;
 public class MainActivity extends AppCompatActivity {
     private final static int REQUEST_ENABLE_BT=1;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    Button button1, button2, button3;
+    Button button1, button2, button3, button4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         button1 = (Button) findViewById(R.id.MyButton1);
         button2 = (Button) findViewById(R.id.MyButton2);
         button3 = (Button) findViewById(R.id.CitButton);
+        button4 = (Button) findViewById(R.id.MyButton4);
 
         // Capture button clicks
         button1.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this,
                         CIT_Services.class);
+                startActivity(myIntent);
+            }
+        });
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(MainActivity.this,
+                        SocietiesDay.class);
                 startActivity(myIntent);
             }
         });

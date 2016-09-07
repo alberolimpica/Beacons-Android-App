@@ -15,8 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -36,16 +34,18 @@ import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
-import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
+import org.altbeacon.beacon.utils.UrlBeaconUrlCompressor;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class BeaconActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
+/**
+ * Created by R00143659 on 07/09/2016.
+ */
+public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener  {
 
 
@@ -143,7 +143,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
             if (!mGoogleApiClient.isConnected()) {
                 mGoogleApiClient.connect();
             }
-        Log.i(TAG, "onStart");
+            Log.i(TAG, "onStart");
         }
     }
 
@@ -178,7 +178,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     }
     @Override
     public void onStop() {
-            unsubscribe();
+        unsubscribe();
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
@@ -211,7 +211,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         super.onResume();
         mBeaconManager = BeaconManager.getInstanceForApplication(this.getApplicationContext());
         //setBeaconLayout method will tell the Android Beacon Library how to decode an Eddystone UID frame
-        mBeaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("s:0-1=feaa,m:2-2=00,p:3-3:-41,i:4-13,i:14-19"));
+        mBeaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("s:0-1=feaa,m:2-2=10,p:3-3:-41,i:4-20v"));
         mBeaconManager.bind(this);
     }
 
@@ -237,27 +237,21 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
 
         for (Beacon beacon: beacons) {
-            // You can tell if a beacon is an Eddystone beacon because it will have a serviceUuid of
-            // 0xfeaa, and a beaconTypeCode of x00. (For the Eddystone-TLM frame, the beaconTypeCode will be 0x20 and for Eddystone-URL the beaconType code will be 0x10).
-            if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x00) {
-                // This is a Eddystone-UID frame
-                Identifier namespaceId = beacon.getId1();
-                Identifier instanceId = beacon.getId2();
+            // for Eddystone-URL the beaconType code will be 0x10).
+            if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x10) {
 
-//                Log.d("Finding Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
-//                        " and instance id: " + instanceId +
-//                        " approximately " + beacon.getDistance() + " meters away.");
-                final String Id = String.valueOf(instanceId);
-                final String namespace = String.valueOf(namespaceId);
-                final double distance =  beacon.getDistance();
-              //  storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
+                final String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
+                Log.d(TAG, "I see a beacon transmitting a url: " + url +
+                        " approximately " + beacon.getDistance() + " meters away.");
+
+//                //  storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        Log.d("BeaconActivity", "Este beacon");
-                        storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
-                        ((TextView)BeaconActivity.this.findViewById(R.id.message)).setText("Beacons found:");
+                      Log.d("SocietiesDay", "Este beacon");
+//                        storeBeacons(new BeaconItem(url));// Only the original thread that created a view hierarchy can touch its views.
+                        ((TextView)SocietiesDay.this.findViewById(R.id.message)).setText("Beacons found:");
                     }
-                });
+               });
             }
         }
     }
@@ -265,41 +259,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     public void onPause() {
         super.onPause();
         mBeaconManager.unbind(this);
-    }
-
-    public void storeBeacons(BeaconItem beacon){
-        List<String> beaconInfo = new ArrayList<String>();
-        if(beacons.size() >= 1){
-            return;
-        }
-
-        boolean equal = false;
-        for (BeaconItem aux : beacons) {
-            if(beacon.getId() == aux.getId()){
-                aux.setDistance(beacon.getDistance());
-                equal = true;
-
-            }
-        }
-
-        if(!equal){
-            beacons.add(beacon);
-        }
-
-
-        for (BeaconItem aux : beacons) {
-            String name = aux.getNamespace();
-            String dist = String.valueOf(aux.getDistance());
-            double distance = Double.parseDouble(dist);
-            distance =Double.parseDouble(new DecimalFormat("##.##").format(distance));
-            //String id = aux.getId();
-            beaconInfo.add("Beacon: " + name+
-                    " - " + distance + " meters");
-        }
-
-        ListView listView = (ListView) findViewById(R.id.listView1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, beaconInfo);
-        listView.setAdapter(adapter);
     }
 
 

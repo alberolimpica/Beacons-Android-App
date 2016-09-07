@@ -1,14 +1,18 @@
 package com.example.r00143659.beacondeployment;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -41,15 +45,87 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         button5 = (ImageButton) findViewById(R.id.bank);
         button6 = (ImageButton) findViewById(R.id.busstop);
 
-//        button1.setOnClickListener(this);
-//        button2.setOnClickListener(this);
-//        button3.setOnClickListener(this);
-//        button4.setOnClickListener(this);
-//        button5.setOnClickListener(this);
-//        button6.setOnClickListener(this);
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
 
+                AlertDialog.Builder alert = new AlertDialog.Builder(TreasureHunting.this);
+                alert.setTitle("Medical Centre");
+                alert.setMessage("WHAT THE MEDICAL CENTRE PROVIDES:\n" +
+                        "Medical attention to all full-time students.\n" +
+                        "Consultations with the Doctors and Nurses are by appointment only.\n" +
+                        "Urgent cases will be seen as soon as possible on the day.\n" +
+                        "Specialist clinics including Asthma, Sexual Health, Sports Injury and Vaccination.\n" +
+                        "Health Promotion/Education/Smoking cessation\n" +
+                        " \n" +
+                        "FEES\n" +
+                        "Consultation with Doctor        €10\n" +
+                        "Consultation with Nurse         No charge   \n" +
+                        " \n" +
+                        "LOCATION\n" +
+                        "We are situated in the Student Centre on the Bishopstown Campus.\n" +
+                        " \n" +
+                        "OPENING HOURS\n" +
+                        "We are open from       \n" +
+                        "8.30am – 5.00pm Monday to Thursday\n" +
+                        "8.30am – 2.30pm on Friday\n" +
+                        "Also open through lunch\n" +
+                        " \n" +
+                        "CONTACT\n" +
+                        "Receptionist:    Marian Walsh for appointments and other queries.  Tel:  021 433 5780\n" +
+                        "STAFF\n" +
+                        "SPECIAL INTEREST  \n" +
+                        "Dr Aileen Scullion \n" +
+                        "Asthma & Occupational Health\n" +
+                        "Dr Caroline Faul \n" +
+                        "Dermatology & Travel Medicine\n" +
+                        "Dr Aidan Kelleher \n" +
+                        "Sports Medicine & Mens Health \n" +
+                        "Mary Gleasure\n" +
+                        "Physio\n" +
+                        "Conor O’Mullane\n" +
+                        "Physio \n" +
+                        "Nurse Joan Brosnan\n" );
 
+                alert.show();
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                ((TextView)TreasureHunting.this.findViewById(R.id.AboutMessage)).setText("Beacons found:");
+                Intent myIntent = new Intent(TreasureHunting.this,
+                        About.class);
 
+                startActivity(myIntent);
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(TreasureHunting.this,
+                        About.class);
+                startActivity(myIntent);
+            }
+        });
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(TreasureHunting.this,
+                        About.class);
+                startActivity(myIntent);
+            }
+        });
+        button5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(TreasureHunting.this,
+                        About.class);
+                startActivity(myIntent);
+            }
+        });
+        button6.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(TreasureHunting.this,
+                        About.class);
+                startActivity(myIntent);
+            }
+        });
     }
     public void paintButton(int modifierId, int colorRes){
         ImageButton button = null;
@@ -223,10 +299,21 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         }
 
         THProximity itemDB = DataManager.findOne(namespace);
-        if(itemDB == null)
+        if(itemDB == null) {
             itemDB = new THProximity();
+        }
 
         itemDB.setStatus(status);
         DataManager.save(itemDB);
+    }
+
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(TreasureHunting.this);
+        builder.setTitle("Simple Dialog");
+        builder.setMessage("Some message here");
+
+
+
+        return builder.create();
     }
 }

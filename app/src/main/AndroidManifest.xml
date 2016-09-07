@@ -11,7 +11,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_leak_add_black_24dp"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -28,6 +28,20 @@
         </activity>
         <activity android:name=".BeaconActivity"
             android:label="Find beacons"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".About"
+            android:label=""
+            android:theme="@android:style/Theme.Holo.Dialog"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.ABOUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SocietiesDay"
+            android:label="Societies Day"
             android:configChanges="orientation|screenSize">
         </activity>
 
