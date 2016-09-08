@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10pt"
+    android:stretchColumns="*">
+    <TextView
+        android:id="@+id/message"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        android:text="CIT Societies" />
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+        <TextView
+            android:text=" "
+            android:id="@+id/tv12" />
+        <TextView
+            android:text=" "
+            android:autoLink="web"
+            android:id="@+id/tv13" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="3">
+
+        <TextView
+            android:text=" "
+            android:id="@+id/tv22" />
+        <TextView
+            android:text=" "
+            android:autoLink="web"
+            android:id="@+id/tv23"/>
+    </TableRow>
+    <TableRow android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+        <TextView
+            android:text=" "
+            android:id="@+id/tv32" />
+        <TextView
+            android:text=" "
+            android:autoLink="web"
+            android:id="@+id/tv33" />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+        <TextView
+            android:text=" " />
+        <TextView
+            android:text=" "
+            android:autoLink="web" />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+        <TextView
+            android:text=" " />
+        <TextView
+            android:text=" "
+            android:autoLink="web" />
+    </TableRow>
+
+
+</TableLayout>

@@ -34,6 +34,7 @@ import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.utils.UrlBeaconUrlCompressor;
@@ -47,7 +48,9 @@ import java.util.List;
  */
 public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener  {
-
+    String[] beaconsID = new String[2];
+    String[] beaconsSocieties =  new String[2];
+    String[] beaconsURL =  new String[2];
 
     private BeaconManager mBeaconManager;
     private List<BeaconItem> beacons = new ArrayList<>();
@@ -74,7 +77,7 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beacon);
+        setContentView(R.layout.table);
 
         //Nearby messages API
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -239,8 +242,13 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
         for (Beacon beacon: beacons) {
             // for Eddystone-URL the beaconType code will be 0x10).
             if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x10) {
+                Identifier namespaceId = beacon.getId1();
+                final String namespace = String.valueOf(namespaceId);
+                byte[] array = beacon.getId1().toByteArray();
+                if(array.length == 0)
+                    return;
 
-                final String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
+                final String url = UrlBeaconUrlCompressor.uncompress(array);
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
                         " approximately " + beacon.getDistance() + " meters away.");
 
@@ -250,6 +258,7 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
                       Log.d("SocietiesDay", "Este beacon");
 //                        storeBeacons(new BeaconItem(url));// Only the original thread that created a view hierarchy can touch its views.
                         ((TextView)SocietiesDay.this.findViewById(R.id.message)).setText("Beacons found:");
+                        matchId(namespace, url);
                     }
                });
             }
@@ -259,7 +268,79 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
     public void onPause() {
         super.onPause();
         mBeaconManager.unbind(this);
-    }
+   }
+    private void matchId(String id, String url){
+        String Society = "";
+        Log.i(TAG, "storeBeacons: matchID "+id);
 
+
+        if(url.contains("http://www.goo.gl/6hiL4P")){
+            Society = "Post Grad CIT";
+            Log.i(TAG, "storeBeacons: matchID "+id);
+        }
+        if(url.contains("badc4d168877")){
+            Society = "   ";
+        }
+        if(url.contains("3380475fa920")) {
+            Society = "   ";
+        }
+        if( url.contains("http://www.goo.gl/nL93Yh")) {
+            Society = "International Society";
+        }
+//            case id.contains("3380475fa920"):
+//                newId = R.id.bank;
+//                break;
+//            case id.contains("3380475fa920"):
+//                newId = R.id.busstop;
+//                break;
+        storeBeacons(id, Society, url);
+    }
+    public void storeBeacons(String id, String society, String url){
+        Log.i(TAG, "storeBeacons:  "+society);
+        int g=0;
+        boolean found = false;
+        for (int i=0; i<beaconsID.length;i++){
+            Log.i(TAG, "storeBeacons:  for"+society);
+            if(id.equalsIgnoreCase(beaconsID[i])){
+                Log.i(TAG, "storeBeacons:  for id? "+society);
+                found = true;
+            }
+            if(beaconsID[i]== null){
+                g=i;
+                Log.i(TAG, "storeBeacons: break "+g);
+                show(found, g,id, society, url);
+                break;
+            }
+        }
+
+    }
+    public void show(boolean found, int g, String id, String Society, String URL){
+        Log.i(TAG, "show: "+g);
+        if(!found && g<3){
+            beaconsID[g] = id;
+            beaconsSocieties[g] = Society;
+            beaconsURL[g] =URL;
+
+
+        }
+        for (int i=0; i<beaconsID.length;i++){
+            if(i==0){
+                ((TextView)SocietiesDay.this.findViewById(R.id.tv12)).setText(beaconsSocieties[0]);
+                ((TextView)SocietiesDay.this.findViewById(R.id.tv13)).setText(beaconsURL[0]);
+
+            }
+            if(i==1){
+
+                ((TextView)SocietiesDay.this.findViewById(R.id.tv22)).setText(beaconsSocieties[1]);
+                ((TextView)SocietiesDay.this.findViewById(R.id.tv23)).setText(beaconsURL[1]);
+            }
+            if(i==2){
+                ((TextView)SocietiesDay.this.findViewById(R.id.tv32)).setText(beaconsSocieties[2]);
+                ((TextView)SocietiesDay.this.findViewById(R.id.tv33)).setText(beaconsURL[2]);
+
+
+            }
+        }
+    }
 
 }

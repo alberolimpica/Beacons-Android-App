@@ -25,6 +25,8 @@ import org.altbeacon.beacon.Region;
 import java.text.DecimalFormat;
 import java.util.Collection;
 
+import io.realm.Realm;
+
 /**
  * Treasure hunting activity. Here the stamps will be shown.
  */
@@ -45,46 +47,17 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         button5 = (ImageButton) findViewById(R.id.bank);
         button6 = (ImageButton) findViewById(R.id.busstop);
 
+        // Paint all buttons depending on the DB statuses
+        for(THProximity th : DataManager.findAll())
+            paintButton(matchId(th.getId()), getColor(th.getId()));
+
+
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(TreasureHunting.this);
                 alert.setTitle("Medical Centre");
-                alert.setMessage("WHAT THE MEDICAL CENTRE PROVIDES:\n" +
-                        "Medical attention to all full-time students.\n" +
-                        "Consultations with the Doctors and Nurses are by appointment only.\n" +
-                        "Urgent cases will be seen as soon as possible on the day.\n" +
-                        "Specialist clinics including Asthma, Sexual Health, Sports Injury and Vaccination.\n" +
-                        "Health Promotion/Education/Smoking cessation\n" +
-                        " \n" +
-                        "FEES\n" +
-                        "Consultation with Doctor        €10\n" +
-                        "Consultation with Nurse         No charge   \n" +
-                        " \n" +
-                        "LOCATION\n" +
-                        "We are situated in the Student Centre on the Bishopstown Campus.\n" +
-                        " \n" +
-                        "OPENING HOURS\n" +
-                        "We are open from       \n" +
-                        "8.30am – 5.00pm Monday to Thursday\n" +
-                        "8.30am – 2.30pm on Friday\n" +
-                        "Also open through lunch\n" +
-                        " \n" +
-                        "CONTACT\n" +
-                        "Receptionist:    Marian Walsh for appointments and other queries.  Tel:  021 433 5780\n" +
-                        "STAFF\n" +
-                        "SPECIAL INTEREST  \n" +
-                        "Dr Aileen Scullion \n" +
-                        "Asthma & Occupational Health\n" +
-                        "Dr Caroline Faul \n" +
-                        "Dermatology & Travel Medicine\n" +
-                        "Dr Aidan Kelleher \n" +
-                        "Sports Medicine & Mens Health \n" +
-                        "Mary Gleasure\n" +
-                        "Physio\n" +
-                        "Conor O’Mullane\n" +
-                        "Physio \n" +
-                        "Nurse Joan Brosnan\n" );
+                alert.setMessage(R.string.medical );
 
                 alert.show();
             }
@@ -284,27 +257,41 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
     private void updateProximity(String namespace, int id, double distance){
         int status = THProximity.NONE;
-        if(distance > 40 ){
-            paintButton(id,android.R.color.holo_red_dark );
+        if(distance >= 40 )
             status = THProximity.RED;
-            Log.e("sss", "matchId: este color por distancia");
-        }
-        if(40 > distance && distance > 10) {
-            paintButton(id, android.R.color.holo_orange_light);
+        if(40 > distance && distance > 10)
             status = THProximity.YELLOW;
-        }
-        if(distance < 10) {
-            paintButton(id, android.R.color.holo_green_dark);
+        if(distance <= 10)
             status = THProximity.GREEN;
-        }
 
-        THProximity itemDB = DataManager.findOne(namespace);
-        if(itemDB == null) {
-            itemDB = new THProximity();
-        }
 
+        THProximity itemDB = new THProximity();
+        itemDB.setId(namespace);
         itemDB.setStatus(status);
+
         DataManager.save(itemDB);
+
+        paintButton(id, getColor(namespace));
+    }
+
+    private int getColor(String id){
+        THProximity beacon = DataManager.findOne(id);
+        int status = beacon != null ? beacon.getStatus() : -1;
+
+        int color = R.color.common_plus_signin_btn_text_light_default;
+        switch(status){
+            case THProximity.GREEN:
+                color = android.R.color.holo_green_dark;
+                break;
+            case THProximity.YELLOW:
+                color = android.R.color.holo_orange_light;
+                break;
+            case THProximity.RED:
+                color = android.R.color.holo_red_dark;
+                break;
+        }
+
+        return color;
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -315,5 +302,11 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
 
         return builder.create();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Realm.getDefaultInstance().close();
     }
 }

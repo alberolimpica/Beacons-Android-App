@@ -35,22 +35,22 @@ public class MainActivity extends AppCompatActivity {
 
         Log.e("sss", "onCreate: "+ Realm.getDefaultInstance().where(THProximity.class).findAll() );
 
-        THProximity toSave = new THProximity();
-        toSave.setId("Beacons");
-
-        DataManager.save(toSave);
-
-        Log.e("ssss", "onCreate: " + Realm.getDefaultInstance().where(THProximity.class).findAll());
-
-        toSave.setStatus(THProximity.YELLOW);
-        DataManager.save(toSave);
-
-        Log.e("ssss", "onCreate: " + Realm.getDefaultInstance().where(THProximity.class).findAll());
-
-        toSave.setStatus(THProximity.RED);
-        DataManager.save(toSave);
-
-        Log.e("ssss", "onCreate: " + Realm.getDefaultInstance().where(THProximity.class).findAll());
+//        THProximity toSave = new THProximity();
+//        toSave.setId("Beacons");
+//
+//        DataManager.save(toSave);
+//
+//        Log.e("ssss", "onCreate: " + Realm.getDefaultInstance().where(THProximity.class).findAll());
+//
+//        toSave.setStatus(THProximity.YELLOW);
+//        DataManager.save(toSave);
+//
+//        Log.e("ssss", "onCreate: " + Realm.getDefaultInstance().where(THProximity.class).findAll());
+//
+//        toSave.setStatus(THProximity.RED);
+//        DataManager.save(toSave);
+//
+//        Log.e("ssss", "onCreate: " + Realm.getDefaultInstance().where(THProximity.class).findAll());
 
         // Locate the button in activity_main.xml
         button1 = (Button) findViewById(R.id.MyButton1);
@@ -101,5 +101,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Realm.getDefaultInstance().close();
     }
 }

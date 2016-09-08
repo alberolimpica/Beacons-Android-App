@@ -27,4 +27,14 @@ public abstract class DataManager {
 
         realm.commitTransaction();
     }
+
+    public static void updateStatus(final THProximity thProximity, final int status){
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                thProximity.setStatus(status);
+                save(thProximity);
+            }
+        });
+    }
 }
