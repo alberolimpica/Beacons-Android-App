@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class Form extends AppCompatActivity {
     private CheckBox chkSociety1, chkSociety2, chkSociety3;
@@ -49,8 +48,8 @@ public class Form extends AppCompatActivity {
                 result.append("\nSociety2 : ").append(chkSociety2.isChecked());
                 result.append("\nSociety3 :").append(chkSociety3.isChecked());
 
-                Toast.makeText(Form.this, result.toString(),
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(Form.this, result.toString(),
+//                        Toast.LENGTH_LONG).show();
 
 
 
