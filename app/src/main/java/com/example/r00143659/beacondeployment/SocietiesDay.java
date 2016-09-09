@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -48,6 +50,7 @@ import java.util.List;
  */
 public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener  {
+    Button button1;
     String[] beaconsID = new String[2];
     String[] beaconsSocieties =  new String[2];
     String[] beaconsURL =  new String[2];
@@ -111,6 +114,18 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
                 Log.d(TAG, "Lost sight of message: " + messageAsString);
             }
         };
+        button1 = (Button) findViewById(R.id.JoinSoc);
+
+        // Capture button clicks
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(SocietiesDay.this,
+                        Form.class);
+                startActivity(myIntent);
+            }
+        });
 
     }
     private void subscribe() {
@@ -257,7 +272,7 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
                     public void run() {
                       Log.d("SocietiesDay", "Este beacon");
 //                        storeBeacons(new BeaconItem(url));// Only the original thread that created a view hierarchy can touch its views.
-                        ((TextView)SocietiesDay.this.findViewById(R.id.message)).setText("Beacons found:");
+                        ((TextView)SocietiesDay.this.findViewById(R.id.message)).setText("Societies found:");
                         matchId(namespace, url);
                     }
                });

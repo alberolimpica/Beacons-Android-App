@@ -50,6 +50,11 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:configChanges="orientation|screenSize">
         </activity>
+        <activity android:name=".Form"
+            android:label="Join a society"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:configChanges="orientation|screenSize">
+        </activity>
         <activity android:name=".CIT_Services"
             android:label="CIT Services"
             android:configChanges="orientation|screenSize">
