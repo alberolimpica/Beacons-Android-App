@@ -192,13 +192,13 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
         Log.i(TAG, "Unsusbcribing");
         if (mGoogleApiClient.isConnected()) {
             Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
+            mGoogleApiClient.disconnect();
         }
     }
     @Override
     public void onStop() {
-        unsubscribe();
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
+        if (mGoogleApiClient != null) {
+            unsubscribe();
         }
         super.onStop();
 

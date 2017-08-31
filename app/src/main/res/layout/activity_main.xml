@@ -6,37 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_marginLeft="30pt"
-            android:layout_marginRight="30pt"
-            android:gravity="center"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/CitButton"
-            android:onClick="sendMessage"
-            android:text="CIT SERVICES"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@mipmap/cit_logo"/>
-
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_marginLeft="30pt"
-            android:layout_marginRight="30pt"
+     <Button
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30pt"
+        android:layout_marginRight="30pt"
+        android:gravity="center"
+        android:layout_weight="3"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_weight="3"
+        android:id="@+id/CitButton"
+        android:onClick="sendMessage"
+        android:text="CIT SERVICES"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@mipmap/cit_logo"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30pt"
+        android:layout_marginRight="30pt"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="3"
         android:id="@+id/MyButton1"
         android:onClick="sendMessage"
         android:text="@string/find_beacons"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/antenna"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_marginLeft="30pt"
@@ -51,22 +48,18 @@
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/societies"/>
 
-
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_marginLeft="30pt"
-            android:layout_marginRight="30pt"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/MyButton2"
-            android:gravity="center"
-            android:layout_weight="3"
-            android:onClick="sendMessage"
-            android:text="@string/treasure_hunting"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/treasure_hunt_logo"/>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30pt"
+        android:layout_marginRight="30pt"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/MyButton2"
+        android:gravity="center"
+        android:layout_weight="3"
+        android:onClick="sendMessage"
+        android:text="@string/treasure_hunting"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/treasure_hunt_logo"/>
 
 </LinearLayout>

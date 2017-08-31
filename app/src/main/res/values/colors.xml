@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorCIT">#b51845</color>
     <color name="transparent">#00000000</color>
+    <color name="common_plus_signin_btn_text_light_default">#FF737373</color>
 </resources>

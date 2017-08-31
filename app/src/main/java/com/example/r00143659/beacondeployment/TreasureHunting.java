@@ -54,11 +54,9 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
                 AlertDialog.Builder alert = new AlertDialog.Builder(TreasureHunting.this);
                 alert.setTitle("Medical Centre");
                 alert.setMessage(R.string.medical );
-
                 alert.show();
             }
         });
@@ -264,7 +262,6 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         if(distance <= 10)
             status = THProximity.GREEN;
 
-
         THProximity itemDB = new THProximity();
         itemDB.setId(namespace);
         itemDB.setStatus(status);
@@ -290,7 +287,6 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
                 color = android.R.color.holo_red_dark;
                 break;
         }
-
         return color;
     }
 
@@ -298,9 +294,6 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         AlertDialog.Builder builder = new AlertDialog.Builder(TreasureHunting.this);
         builder.setTitle("Simple Dialog");
         builder.setMessage("Some message here");
-
-
-
         return builder.create();
     }
     @Override

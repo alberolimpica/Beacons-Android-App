@@ -7,6 +7,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -54,7 +56,8 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     private GoogleApiClient mGoogleApiClient;
     private MessageListener mMessageListener;
     private static final String TAG = BeaconActivity.class.getSimpleName();
-
+    ListView listView;
+    ArrayAdapter<String> adapter;
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     //This is a new addition, and in onStart the if() is one too
     private static int[] NETWORK_TYPES = {ConnectivityManager.TYPE_WIFI, ConnectivityManager.TYPE_ETHERNET};
@@ -76,9 +79,11 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
 
+        listView = (ListView) findViewById(R.id.listView1);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        listView.setAdapter(adapter);
+
         //Nearby messages API
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addApi(Nearby.MESSAGES_API, new MessagesOptions.Builder()
                             .setPermissions(NearbyPermissions.BLE)
@@ -87,7 +92,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                     .enableAutoManage(this, this)
                     .build();
             Log.i(TAG, "API connected");
-        }
+
         mMessageListener = new MessageListener() {
 
             @Override
@@ -108,8 +113,8 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 Log.d(TAG, "Lost sight of message: " + messageAsString);
             }
         };
-
     }
+
     private void subscribe() {
         Log.i(TAG, "Subscribing.");
         SubscribeOptions options = new SubscribeOptions.Builder()
@@ -133,7 +138,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                         }
                     }
                 });
-
     }
 
     @Override
@@ -183,7 +187,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
             mGoogleApiClient.disconnect();
         }
         super.onStop();
-
     }
 
     @Override
@@ -205,6 +208,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
     @Override
     //This method gets called when the activity appears
     public  void onResume (){
@@ -222,7 +226,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     }
     @Override
     public void onBeaconServiceConnect(){
-        //To tell the libraryy that we want to see all beacons:
+        //To tell the library that we want to see all beacons:
         Region region = new Region("all-beacons-region", null, null, null);
         try{
             //to start looking for beacons that match this region definition
@@ -230,7 +234,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         }catch(RemoteException e){
             e.printStackTrace();
         }
-        //This class will receive callbacks everytime a beacon is seen
+        //This class will receive callbacks every time a beacon is seen
         mBeaconManager.setRangeNotifier(this);
     }
     @Override
@@ -244,9 +248,9 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 Identifier namespaceId = beacon.getId1();
                 Identifier instanceId = beacon.getId2();
 
-//                Log.d("Finding Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
-//                        " and instance id: " + instanceId +
-//                        " approximately " + beacon.getDistance() + " meters away.");
+                Log.d("Finding Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
+                        " and instance id: " + instanceId +
+                        " approximately " + beacon.getDistance() + " meters away.");
                 final String Id = String.valueOf(instanceId);
                 final String namespace = String.valueOf(namespaceId);
                 final double distance =  beacon.getDistance();
@@ -254,21 +258,21 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 runOnUiThread(new Runnable() {
                     public void run() {
                         Log.d("BeaconActivity", "Este beacon");
-                        storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
+                        storeBeacon(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
                         ((TextView)BeaconActivity.this.findViewById(R.id.message)).setText("Beacons found:");
                     }
                 });
             }
         }
     }
+
     @Override
     public void onPause() {
         super.onPause();
         mBeaconManager.unbind(this);
     }
 
-    public void storeBeacons(BeaconItem beacon){
-        List<String> beaconInfo = new ArrayList<String>();
+    public void storeBeacon(BeaconItem beacon){
         if(beacons.size() >= 1){
             return;
         }
@@ -278,7 +282,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
             if(beacon.getId() == aux.getId()){
                 aux.setDistance(beacon.getDistance());
                 equal = true;
-
             }
         }
 
@@ -286,21 +289,19 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
             beacons.add(beacon);
         }
 
-
         for (BeaconItem aux : beacons) {
             String name = aux.getNamespace();
             String dist = String.valueOf(aux.getDistance());
             double distance = Double.parseDouble(dist);
             distance =Double.parseDouble(new DecimalFormat("##.##").format(distance));
             //String id = aux.getId();
-            beaconInfo.add("Beacon: " + name+
-                    " - " + distance + " meters");
+            adapter.add("Beacon: " + name+ " -> " + distance + " meters");
         }
 
-        ListView listView = (ListView) findViewById(R.id.listView1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, beaconInfo);
+        adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
+
+        System.out.println(
+                adapter.getCount());
     }
-
-
 }
