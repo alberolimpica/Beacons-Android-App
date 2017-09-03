@@ -5,15 +5,15 @@ package com.example.r00143659.beacondeployment;
  */
 
 
-public class BeaconItem {
+public class SimpleBeacon {
 
     private String namespace;
     private String id;
     private Double distance;
 
-    public BeaconItem(){
+    public SimpleBeacon(){
     }
-    public BeaconItem( String id, String namespace, Double distance) {
+    public SimpleBeacon(String id, String namespace, Double distance) {
         this.namespace = namespace;
         this.id = id;
         this.distance = distance;

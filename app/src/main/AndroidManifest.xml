@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAwelkff59_eNR4TrSArg9YT-P_2sMiDuo" />
+        <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyAwelkff59_eNR4TrSArg9YT-P_2sMiDuo" />
         <activity android:name=".MainActivity"

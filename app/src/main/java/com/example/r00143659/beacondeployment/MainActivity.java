@@ -3,9 +3,11 @@ package com.example.r00143659.beacondeployment;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +16,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import java.util.IllegalFormatCodePointException;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -35,9 +35,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // Get the view from activity_main.xml
         setContentView(R.layout.activity_main);
-       if (!mBluetoothAdapter.isEnabled()) {
+        if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("sss", "onCreate: "+ Realm.getDefaultInstance().where(THProximity.class).findAll() );
 
 //        THProximity toSave = new THProximity();
-//        toSave.setId("Beacons");
+//        toSave.setId("RealmBeacon");
 //
 //        DataManager.save(toSave);
 //
@@ -95,6 +96,47 @@ public class MainActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(MainActivity.this,
                         CIT_Services.class);
                 startActivity(myIntent);
+            }
+        });
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            // using the following line to edit/commit prefs
+            prefs.edit().putBoolean("firstrun", false).commit();
+
+            saveBeaconsInDB();
+
+        }
+    }
+
+    private void saveBeaconsInDB(){
+
+        Realm realm = Realm.getDefaultInstance();
+
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmBeacon beacon1 = realm.createObject(RealmBeacon.class);
+                beacon1.setId("0x30313233343536373839");
+                beacon1.setName("Back right");
+                beacon1.setLatitude(38.947909);
+                beacon1.setLongitude(-0.401673);
+                beacon1.setDistance(-1);
+
+                RealmBeacon beacon2 = realm.createObject(RealmBeacon.class);
+                beacon2.setId("0x31323334353637383940");
+                beacon2.setName("Back");
+                beacon2.setLatitude(38.947880);
+                beacon2.setLongitude(-0.401673);
+                beacon2.setDistance(-1);
+
+                RealmBeacon beacon3 = realm.createObject(RealmBeacon.class);
+                beacon3.setId("0x32333435363738394041");
+                beacon3.setName("Front");
+                beacon3.setLatitude(38.947880);
+                beacon3.setLongitude(-0.401723);
+                beacon3.setDistance(-1);
             }
         });
     }

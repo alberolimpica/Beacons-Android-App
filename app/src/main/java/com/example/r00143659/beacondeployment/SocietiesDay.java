@@ -56,7 +56,7 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
     String[] beaconsURL =  new String[2];
 
     private BeaconManager mBeaconManager;
-    private List<BeaconItem> beacons = new ArrayList<>();
+    private List<SimpleBeacon> beacons = new ArrayList<>();
     private GoogleApiClient mGoogleApiClient;
     private MessageListener mMessageListener;
     private static final String TAG = BeaconActivity.class.getSimpleName();
@@ -267,11 +267,11 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
                         " approximately " + beacon.getDistance() + " meters away.");
 
-//                //  storeBeacons(new BeaconItem(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
+//                //  storeBeacons(new SimpleBeacon(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
                 runOnUiThread(new Runnable() {
                     public void run() {
                       Log.d("SocietiesDay", "Este beacon");
-//                        storeBeacons(new BeaconItem(url));// Only the original thread that created a view hierarchy can touch its views.
+//                        storeBeacons(new SimpleBeacon(url));// Only the original thread that created a view hierarchy can touch its views.
                         ((TextView)SocietiesDay.this.findViewById(R.id.message)).setText("Societies found:");
                         matchId(namespace, url);
                     }

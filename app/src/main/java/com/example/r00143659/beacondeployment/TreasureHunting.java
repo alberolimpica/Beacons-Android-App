@@ -27,32 +27,29 @@ import java.util.Collection;
 
 import io.realm.Realm;
 
-/**
- * Treasure hunting activity. Here the stamps will be shown.
- */
 
 // (BeaconConsumer, RangeNotifier) These define callback methods when the beacon scanning service is ready and when beacons are discovered in range.
 public class TreasureHunting extends AppCompatActivity implements View.OnClickListener, BeaconConsumer, RangeNotifier {
-    ImageButton button1, button2, button3, button4, button5, button6;
+
+    ImageButton medicalCentreButton, itServiceButton, cardOfficeButton, libraryButton, bankButton, busStopButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.treasure);
 
-        button1 = (ImageButton) findViewById(R.id.medcen);
-        button2 = (ImageButton) findViewById(R.id.itser);
-        button3 = (ImageButton) findViewById(R.id.cardoff);
-        button4 = (ImageButton) findViewById(R.id.libr);
-        button5 = (ImageButton) findViewById(R.id.bank);
-        button6 = (ImageButton) findViewById(R.id.busstop);
+        medicalCentreButton = (ImageButton) findViewById(R.id.medcen);
+        itServiceButton = (ImageButton) findViewById(R.id.itser);
+        cardOfficeButton = (ImageButton) findViewById(R.id.cardoff);
+        libraryButton = (ImageButton) findViewById(R.id.libr);
+        bankButton = (ImageButton) findViewById(R.id.bank);
+        busStopButton = (ImageButton) findViewById(R.id.busstop);
 
         // Paint all buttons depending on the DB statuses
         for(THProximity th : DataManager.findAll())
             paintButton(matchId(th.getId()), getColor(th.getId()));
 
-
-        button1.setOnClickListener(new View.OnClickListener() {
+        medicalCentreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(TreasureHunting.this);
                 alert.setTitle("Medical Centre");
@@ -60,37 +57,40 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
                 alert.show();
             }
         });
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                ((TextView)TreasureHunting.this.findViewById(R.id.AboutMessage)).setText("Beacons found:");
-                Intent myIntent = new Intent(TreasureHunting.this,
-                        About.class);
 
-                startActivity(myIntent);
-            }
-        });
-        button3.setOnClickListener(new View.OnClickListener() {
+        itServiceButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent myIntent = new Intent(TreasureHunting.this,
                         About.class);
                 startActivity(myIntent);
             }
         });
-        button4.setOnClickListener(new View.OnClickListener() {
+
+        cardOfficeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent myIntent = new Intent(TreasureHunting.this,
                         About.class);
                 startActivity(myIntent);
             }
         });
-        button5.setOnClickListener(new View.OnClickListener() {
+
+        libraryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent myIntent = new Intent(TreasureHunting.this,
                         About.class);
                 startActivity(myIntent);
             }
         });
-        button6.setOnClickListener(new View.OnClickListener() {
+
+        bankButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(TreasureHunting.this,
+                        About.class);
+                startActivity(myIntent);
+            }
+        });
+
+        busStopButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent myIntent = new Intent(TreasureHunting.this,
                         About.class);
@@ -102,29 +102,28 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         ImageButton button = null;
         switch(modifierId){
             case R.id.medcen:
-                button = button1;
+                button = medicalCentreButton;
                 Log.e("sss", "matchId: pintando");
                 break;
             case R.id.itser:
-                button = button2;
+                button = itServiceButton;
                 break;
             case R.id.cardoff:
-                button = button3;
+                button = cardOfficeButton;
                 break;
             case R.id.libr:
-                button = button4;
+                button = libraryButton;
                 break;
             case R.id.bank:
-                button = button5;
+                button = bankButton;
                 break;
             case R.id.busstop:
-                button = button6;
+                button = busStopButton;
                 break;
         }
         if (button != null) {
             button.setColorFilter(getColorFilter(colorRes));
         }
-
     }
 
     private PorterDuffColorFilter getColorFilter(int colorRes){
@@ -193,18 +192,6 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-//    public void distance(double distance){
-//        if(distance >= 70.00 ){
-//            paintButton(R.id.medcen,android.R.color.holo_red_dark );
-//        }else if(10.00 <= distance&& distance < 70.00){
-//            paintButton(R.id.medcen,android.R.color.holo_orange_light );
-//
-//        }else if(distance<10){
-//            paintButton(R.id.medcen,android.R.color.holo_green_dark );
-//        }
-//    }
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -212,44 +199,22 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         mBeaconManager.unbind(this);
     }
 
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
     private int matchId(String id){
         int newId = 0;
 
-        if(id.contains("0x29c7451088e8")){
+        if(id.contains("30313233343536373839")){
             newId = R.id.medcen;
             Log.e("sss", "matchId: medcen");
         }
-        if(id.contains("badc4d168877")){
+        if(id.contains("31323334353637383940")){
             newId = R.id.itser;
         }
-        if(id.contains("3380475fa920")) {
+        if(id.contains("32333435363738394041")) {
             newId = R.id.cardoff;
         }
         if( id.contains("89c641c7b59b")) {
             newId = R.id.libr;
         }
-//            case id.contains("3380475fa920"):
-//                newId = R.id.bank;
-//                break;
-//            case id.contains("3380475fa920"):
-//                newId = R.id.busstop;
-//                break;
         return newId;
     }
 
@@ -265,9 +230,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         THProximity itemDB = new THProximity();
         itemDB.setId(namespace);
         itemDB.setStatus(status);
-
         DataManager.save(itemDB);
-
         paintButton(id, getColor(namespace));
     }
 
@@ -296,10 +259,10 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
         builder.setMessage("Some message here");
         return builder.create();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         Realm.getDefaultInstance().close();
     }
 }
