@@ -44,7 +44,7 @@ public class Position {
             //Longitude
             y[i] = realmBeacons.get(i).getLongitude();
             //Distance
-            r[i] = realmBeacons.get(i).getDistance();
+            r[i] = realmBeacons.get(i).getDistance()*(Math.pow(10,-3.0)/6371);
             Log.d("sss", "Latitude "+x[i]+ " and Longitude "+y[i]+" distance "+r[i]);
         }
 
@@ -88,12 +88,15 @@ public class Position {
         double I = Math.pow(x[2],2.0)+Math.pow(y[2],2.0)-Math.pow(r[2],2.0);
 
         //The value of the coordinate Y where the item is located
-        double coordinateY = ((A - D)*(I - F) - (D - G)*(F - C)) / ((D - G)*(E - B) - (A - D)*(H - E));
+        double coordinateY = -((A - D)*(I - F) - (D - G)*(F - C)) / ((D - G)*(E - B) - (A - D)*(H - E));
+        Log.d("sss", " A: " + A + "D: " + D + " I: " + I + "F: " + F + " G: " + G + "C: " + C + " E: " + E + "B: " + B + " H: " + H  );
         //The value of the coordinate X where the item is located
         double coordinateX = ((H - E)*coordinateY + (I - F))/(D - G);
 
-        LatLng latLang = new LatLng(coordinateX, coordinateY);
-        Log.d("sss", "Latitude "+coordinateX+ " and Longitude "+coordinateY);
+        Log.d("sss", " H: " + H + " E: " + E +" COORDY: " + coordinateY + " I: " +I + " F: " + F + " D: " + D+ " G: " + G);
+
+        LatLng latLang = new LatLng(-coordinateX, coordinateY);
+        Log.d("sss", "Final Latitude "+coordinateX+ " and Longitude "+coordinateY);
 
         return latLang;
     }
