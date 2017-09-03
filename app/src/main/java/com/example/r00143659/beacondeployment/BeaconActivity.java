@@ -13,8 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -67,6 +68,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     private MessageListener mMessageListener;
     private static final String TAG = BeaconActivity.class.getSimpleName();
     private GoogleMap mGoogleMap ;
+
 
     ArrayAdapter<String> adapter;
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -125,7 +127,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
         mapFragment.getMapAsync(this);
 
         final Handler handler = new Handler();
-        final int delay = 10000; //milliseconds
+        final int delay = 5000; //milliseconds
 
         handler.postDelayed(new Runnable(){
             public void run(){
@@ -162,11 +164,17 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 }
 
                 LatLng centerLatLon = Position.getCenter(realmBeacons);
+                Log.d("SSS", "LatLang to string" + centerLatLon.toString().toLowerCase());
 
+                if(centerLatLon.toString().toLowerCase().contains("inf") || centerLatLon.toString().toLowerCase().contains("nan") ||centerLatLon.toString().toLowerCase().contains("90.0,")){
+                    handler.postDelayed(this, delay);
+                    return;
+                }
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(centerLatLon));
                 mGoogleMap.addMarker(new MarkerOptions().position(centerLatLon).alpha(0.7f).icon(BitmapDescriptorFactory.fromResource(R.mipmap.user_position)));
                 mGoogleMap.setMinZoomPreference(20.0f);
                 mGoogleMap.setMaxZoomPreference(25.0f);
+
 
                 handler.postDelayed(this, delay);
             }
@@ -348,8 +356,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
                 runOnUiThread(new Runnable() {
                     public void run() {
                         Log.d("BeaconActivity", "Este beacon");
-                        storeBeacon(new SimpleBeacon(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
-                        ((TextView)BeaconActivity.this.findViewById(R.id.message)).setText("RealmBeacon found:");
+                        storeBeacon(new SimpleBeacon(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views
                     }
                 });
             }

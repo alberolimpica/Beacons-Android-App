@@ -7,20 +7,32 @@
     android:id="@+id/container"
     android:orientation="vertical"
     tools:context=".BeaconActivity">
+
     <TextView
-        android:id="@+id/message"
+        android:id="@+id/place_to_go"
         android:layout_height="0dp"
         android:layout_weight="0.22"
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="left"
         android:gravity="center"
         android:textColor="@color/colorAccent"
         android:textSize="30sp"
-        android:text="@string/beacon_finder" />
+        android:text="@string/beacon_question" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/go_to_button"
+        android:layout_gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_search_category_default" />
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="400dp" />
+        android:layout_height="400dp"
+        android:layout_weight="0.33" />
+
+
 </LinearLayout>
