@@ -3,6 +3,7 @@ package com.example.r00143659.beacondeployment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -15,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -25,10 +25,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
@@ -53,7 +54,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.realm.Realm;
 
@@ -160,16 +160,26 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
 
                 for (RealmBeacon beacon : realmBeacons) {
                     LatLng beaconLatLong = new LatLng(beacon.getLatitude(), beacon.getLongitude());
-                    mGoogleMap.addMarker(new MarkerOptions().position(beaconLatLong).alpha(0.7f));
+                    mGoogleMap.addMarker(new MarkerOptions().position(beaconLatLong));
                 }
 
-                LatLng centerLatLon = Position.getCenter(realmBeacons);
-                Log.d("SSS", "LatLang to string" + centerLatLon.toString().toLowerCase());
+                final LatLng centerLatLon = Position.getCenter(realmBeacons);
 
                 if(centerLatLon.toString().toLowerCase().contains("inf") || centerLatLon.toString().toLowerCase().contains("nan") ||centerLatLon.toString().toLowerCase().contains("90.0,")){
                     handler.postDelayed(this, delay);
                     return;
                 }
+
+                findViewById(R.id.go_to_button).setOnClickListener(new View.OnClickListener()
+                {
+                    public void onClick(View v)
+                    {
+                        Polyline line = mGoogleMap.addPolyline(new PolylineOptions()
+                                .add(centerLatLon, new LatLng(38.947891, -0.401538))
+                                .width(5)
+                                .color(Color.RED));
+                    }
+                });
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(centerLatLon));
                 mGoogleMap.addMarker(new MarkerOptions().position(centerLatLon).alpha(0.7f).icon(BitmapDescriptorFactory.fromResource(R.mipmap.user_position)));
                 mGoogleMap.setMinZoomPreference(20.0f);
@@ -185,9 +195,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     private List<RealmBeacon> getAllBeaconsByUid(List<SimpleBeacon> triangulationBeacons){
         List<RealmBeacon> beaconsInDB = new ArrayList<>();
         for (SimpleBeacon beacon : triangulationBeacons) {
-            Log.d("ss","DISTANCIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: " +beacon.getDistance());
             String namespaceOfBeacon = beacon.getNamespace();
-            Log.d("ss","DISTANCIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: " +beacon.getDistance());
             RealmBeacon actualBeacon = realm.where(RealmBeacon.class).equalTo("id", namespaceOfBeacon).findFirst();
 
             if(actualBeacon == null){

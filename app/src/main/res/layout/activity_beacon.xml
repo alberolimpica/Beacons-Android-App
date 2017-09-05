@@ -16,7 +16,7 @@
         android:layout_gravity="left"
         android:gravity="center"
         android:textColor="@color/colorAccent"
-        android:textSize="30sp"
+        android:textSize="15sp"
         android:text="@string/beacon_question" />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/go_to_button"
