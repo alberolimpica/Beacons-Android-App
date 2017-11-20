@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10pt">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/web_etse"
+            android:text="@string/web_de_la_etse"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/logo_etse"
+            android:drawableStart="@drawable/logo_etse" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/web_opal"
+            android:text="@string/opal"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/logo_opal"
+            android:drawableStart="@drawable/logo_opal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:id="@+id/web_biblioteca"
+            android:text="@string/cat_logo_trobes"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/logo_biblioteca"
+            android:drawableStart="@drawable/logo_biblioteca" />
+
+        <Button
+            android:id="@+id/web_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/correo_uv"
+            android:gravity="center"
+            android:text="@string/correo_uv"
+            android:drawableStart="@drawable/correo_uv" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/aula_virtual"
+            android:text="@string/aula_virtual"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/aula_virtual"
+            android:drawableStart="@drawable/aula_virtual" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/servei_esports"
+            android:text="@string/servicio_de_deportes"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/servei_esports"
+            android:drawableStart="@drawable/servei_esports" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="30pt"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/horarios_y_examenes"
+            android:text="@string/horarios_y_fechas_ex_menes"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/horarios_y_examenes"
+            android:drawableStart="@drawable/horarios_y_examenes" />
+</LinearLayout>

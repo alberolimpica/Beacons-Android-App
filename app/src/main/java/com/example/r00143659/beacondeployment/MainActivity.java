@@ -38,12 +38,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Get the view from activity_main.xml
         setContentView(R.layout.activity_main);
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
 
-        Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
+        //TODO remove to launch in phone
+//        if (!mBluetoothAdapter.isEnabled()) {
+//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+//        }
+
+        //Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(config);
 
         Log.e("sss", "onCreate: "+ Realm.getDefaultInstance().where(THProximity.class).findAll() );
 
@@ -94,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this,
-                        CIT_Services.class);
+                        ServiciosETSE.class);
                 startActivity(myIntent);
             }
         });
@@ -103,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         if (prefs.getBoolean("firstrun", true)) {
             // Do first run stuff here then set 'firstrun' as false
             // using the following line to edit/commit prefs
-            prefs.edit().putBoolean("firstrun", false).commit();
+            prefs.edit().putBoolean("firstrun", false).apply();
 
             saveBeaconsInDB();
 
@@ -117,22 +122,22 @@ public class MainActivity extends AppCompatActivity {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                RealmBeacon beacon1 = realm.createObject(RealmBeacon.class);
-                beacon1.setId("0x30313233343536373839");
+                RealmBeacon beacon1 = realm.createObject(RealmBeacon.class, "0x30313233343536373839");
+                //beacon1.setId("0x30313233343536373839");
                 beacon1.setName("Back right");
                 beacon1.setLatitude(38.947909);
                 beacon1.setLongitude(-0.401673);
                 beacon1.setDistance(-1);
 
-                RealmBeacon beacon2 = realm.createObject(RealmBeacon.class);
-                beacon2.setId("0x31323334353637383940");
+                RealmBeacon beacon2 = realm.createObject(RealmBeacon.class, "0x31323334353637383940");
+                //beacon2.setId("0x31323334353637383940");
                 beacon2.setName("Back");
                 beacon2.setLatitude(38.947880);
                 beacon2.setLongitude(-0.401673);
                 beacon2.setDistance(-1);
 
-                RealmBeacon beacon3 = realm.createObject(RealmBeacon.class);
-                beacon3.setId("0x32333435363738394041");
+                RealmBeacon beacon3 = realm.createObject(RealmBeacon.class, "0x32333435363738394041");
+                //beacon3.setId("0x32333435363738394041");
                 beacon3.setName("Front");
                 beacon3.setLatitude(38.947880);
                 beacon3.setLongitude(-0.401723);

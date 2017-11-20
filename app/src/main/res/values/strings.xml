@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">BeaconDeployment</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="beacon_finder">Beacon Finder!</string>
+    <string name="hello_world">Hola mundo!</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="beacon_finder">Buscador de beacons!</string>
     <string name="beacon_question">Let\'s go to the next point!</string>
-    <string name="medical_centre">Medical Centre</string>
-    <string name="treasure_hunting">Treasure hunting</string>
-    <string name="find_beacons">Find beacons</string>
-    <string name="select">Select from one of those:</string>
-    <string name="societies_day">Societies day</string>
+    <string name="medical_centre">Centro médico</string>
+    <string name="treasure_hunting">Busqueda del tesoro</string>
+    <string name="find_beacons">Busca beacons</string>
+    <string name="select">Seleccione una de las siguientes opciones:</string>
+    <string name="societies_day">Dia de las sociedades</string>
     <string name="medical">WHAT THE MEDICAL CENTRE PROVIDES:
 "
 "  *Medical attention to all full-time students.\n"
@@ -41,4 +41,12 @@
 "Conor O’Mullane - Physio"
 "Joan Brosnan - Nurse"
 </string>
+    <string name="horarios_y_fechas_ex_menes">Horarios y fechas exámenes</string>
+    <string name="servicio_de_deportes">Servicio de deportes</string>
+    <string name="aula_virtual">Aula Virtual</string>
+    <string name="correo_uv">Correo UV</string>
+    <string name="cat_logo_trobes">Catálogo Trobes</string>
+    <string name="opal">Opal</string>
+    <string name="web_de_la_etse">Web de la ETSE</string>
+    <string name="servicios_de_la_etse">Servicios de la ETSE</string>
 </resources>

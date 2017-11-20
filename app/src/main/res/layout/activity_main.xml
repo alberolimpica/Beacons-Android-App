@@ -15,10 +15,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/CitButton"
-        android:onClick="sendMessage"
-        android:text="CIT SERVICES"
+        android:text="@string/servicios_de_la_etse"
         android:background="@android:color/transparent"
-        android:drawableLeft="@mipmap/cit_logo"/>
+        android:drawableLeft="@drawable/logo_etse"
+         tools:ignore="OnClick"
+         android:drawableStart="@drawable/logo_etse" />
 
     <Button
         android:layout_width="match_parent"
@@ -29,10 +30,10 @@
         android:gravity="center"
         android:layout_weight="3"
         android:id="@+id/MyButton1"
-        android:onClick="sendMessage"
         android:text="@string/find_beacons"
         android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/antenna"/>
+        android:drawableLeft="@drawable/antenna"
+        android:drawableStart="@drawable/antenna" />
 
     <Button
         android:layout_width="match_parent"
@@ -43,10 +44,8 @@
         android:gravity="center"
         android:layout_weight="3"
         android:id="@+id/MyButton4"
-        android:onClick="sendMessage"
         android:text="@string/societies_day"
-        android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/societies"/>
+        android:background="@android:color/transparent"/>
 
     <Button
         android:layout_width="match_parent"
@@ -57,9 +56,9 @@
         android:id="@+id/MyButton2"
         android:gravity="center"
         android:layout_weight="3"
-        android:onClick="sendMessage"
         android:text="@string/treasure_hunting"
         android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/treasure_hunt_logo"/>
+        android:drawableLeft="@drawable/treasure_hunt_logo"
+        android:drawableStart="@drawable/treasure_hunt_logo" />
 
 </LinearLayout>

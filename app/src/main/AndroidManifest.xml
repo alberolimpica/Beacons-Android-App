@@ -58,7 +58,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:configChanges="orientation|screenSize">
         </activity>
-        <activity android:name=".CIT_Services"
+        <activity android:name=".ServiciosETSE"
             android:label="CIT Services"
             android:configChanges="orientation|screenSize">
         </activity>
