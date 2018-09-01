@@ -52,23 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         Log.e("sss", "onCreate: "+ Realm.getDefaultInstance().where(THProximity.class).findAll() );
 
-//        THProximity toSave = new THProximity();
-//        toSave.setId("RealmBeacon");
-//
-//        DataManager.save(toSave);
-//
-//        Log.e("ssss", "onCreate: " + Realm.getDefaultInstance().where(THProximity.class).findAll());
-//
-//        toSave.setStatus(THProximity.YELLOW);
-//        DataManager.save(toSave);
-//
-//        Log.e("ssss", "onCreate: " + Realm.getDefaultInstance().where(THProximity.class).findAll());
-//
-//        toSave.setStatus(THProximity.RED);
-//        DataManager.save(toSave);
-//
-//        Log.e("ssss", "onCreate: " + Realm.getDefaultInstance().where(THProximity.class).findAll());
-
         // Locate the button in activity_main.xml
         beaconActivityButton = (Button) findViewById(R.id.MyButton1);
         treasureHuntingButton = (Button) findViewById(R.id.MyButton2);
@@ -181,13 +164,13 @@ public class MainActivity extends AppCompatActivity {
         Class activity;
         switch (activityId) {
             case BEACONS_REQUEST:
-                activity = BeaconActivity.class;
+                activity = irASitiosETSE.class;
                 break;
             case SOCIETIES_REQUEST:
-                activity = SocietiesDay.class;
+                activity = actividadesETSE.class;
                 break;
             case TREASURE_REQUEST:
-                activity = TreasureHunting.class;
+                activity = conoceLaETSE.class;
                 break;
             default:
                 throw new IllegalArgumentException("Why are we here?");
@@ -220,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
                     launchActivity(requestCode);
                     break;
                 default:
-                    return;
             }
         } else {
             checkAndRequestPermission(requestCode);

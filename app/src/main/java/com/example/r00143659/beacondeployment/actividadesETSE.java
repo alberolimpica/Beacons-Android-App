@@ -48,9 +48,8 @@ import java.util.List;
 /**
  * Created by R00143659 on 07/09/2016.
  */
-public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
+public class actividadesETSE extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener  {
-    Button button1;
     String[] beaconsID = new String[2];
     String[] beaconsSocieties =  new String[2];
     String[] beaconsURL =  new String[2];
@@ -59,7 +58,7 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
     private List<SimpleBeacon> beacons = new ArrayList<>();
     private GoogleApiClient mGoogleApiClient;
     private MessageListener mMessageListener;
-    private static final String TAG = BeaconActivity.class.getSimpleName();
+    private static final String TAG = irASitiosETSE.class.getSimpleName();
 
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     //This is a new addition, and in onStart the if() is one too
@@ -76,13 +75,12 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
         }
         return false;
     }
-    //
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.table);
+        setContentView(R.layout.actividades_etse);
 
-        //Nearby messages API
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -114,20 +112,8 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
                 Log.d(TAG, "Lost sight of message: " + messageAsString);
             }
         };
-        button1 = (Button) findViewById(R.id.JoinSoc);
-
-        // Capture button clicks
-        button1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-
-                // Start NewActivity.class
-                Intent myIntent = new Intent(SocietiesDay.this,
-                        Form.class);
-                startActivity(myIntent);
-            }
-        });
-
     }
+
     private void subscribe() {
         Log.i(TAG, "Subscribing.");
         SubscribeOptions options = new SubscribeOptions.Builder()
@@ -151,7 +137,6 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
                         }
                     }
                 });
-
     }
 
     @Override
@@ -188,6 +173,7 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
             Log.e(TAG, "GoogleApiClient connection failed");
         }
     }
+
     private void unsubscribe(){
         Log.i(TAG, "Unsusbcribing");
         if (mGoogleApiClient.isConnected()) {
@@ -223,6 +209,7 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
     @Override
     //This method gets called when the activity appears
     public  void onResume (){
@@ -238,6 +225,7 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBeaconServiceConnect(){
         //To tell the libraryy that we want to see all beacons:
@@ -251,6 +239,7 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
         //This class will receive callbacks everytime a beacon is seen
         mBeaconManager.setRangeNotifier(this);
     }
+
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
 
@@ -270,20 +259,22 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
 //                //  storeBeacons(new SimpleBeacon(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
                 runOnUiThread(new Runnable() {
                     public void run() {
-                      Log.d("SocietiesDay", "Este beacon");
+                      Log.d("actividadesETSE", "Este beacon");
 //                        storeBeacons(new SimpleBeacon(url));// Only the original thread that created a view hierarchy can touch its views.
-                        ((TextView)SocietiesDay.this.findViewById(R.id.message)).setText("Societies found:");
+                        ((TextView)actividadesETSE.this.findViewById(R.id.message)).setText("Societies found:");
                         matchId(namespace, url);
                     }
                });
             }
         }
     }
+
     @Override
     public void onPause() {
         super.onPause();
         mBeaconManager.unbind(this);
    }
+
     private void matchId(String id, String url){
         String Society = "";
         Log.i(TAG, "storeBeacons: matchID "+id);
@@ -292,24 +283,17 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
         if(url.contains("http://www.goo.gl/6hiL4P")){
             Society = "Post Grad CIT";
             Log.i(TAG, "storeBeacons: matchID "+id);
-        }
-        if(url.contains("badc4d168877")){
+        }else if(url.contains("badc4d168877")){
             Society = "   ";
-        }
-        if(url.contains("3380475fa920")) {
+        }else if(url.contains("3380475fa920")) {
             Society = "   ";
-        }
-        if( url.contains("http://www.goo.gl/nL93Yh")) {
+        }else if( url.contains("http://www.goo.gl/nL93Yh")) {
             Society = "International Society";
         }
-//            case id.contains("3380475fa920"):
-//                newId = R.id.bank;
-//                break;
-//            case id.contains("3380475fa920"):
-//                newId = R.id.busstop;
-//                break;
+
         storeBeacons(id, Society, url);
     }
+
     public void storeBeacons(String id, String society, String url){
         Log.i(TAG, "storeBeacons:  "+society);
         int g=0;
@@ -327,35 +311,27 @@ public class SocietiesDay extends AppCompatActivity implements BeaconConsumer, R
                 break;
             }
         }
-
     }
+
     public void show(boolean found, int g, String id, String Society, String URL){
         Log.i(TAG, "show: "+g);
         if(!found && g<3){
             beaconsID[g] = id;
             beaconsSocieties[g] = Society;
             beaconsURL[g] =URL;
-
-
         }
+
         for (int i=0; i<beaconsID.length;i++){
             if(i==0){
-                ((TextView)SocietiesDay.this.findViewById(R.id.tv12)).setText(beaconsSocieties[0]);
-                ((TextView)SocietiesDay.this.findViewById(R.id.tv13)).setText(beaconsURL[0]);
-
-            }
-            if(i==1){
-
-                ((TextView)SocietiesDay.this.findViewById(R.id.tv22)).setText(beaconsSocieties[1]);
-                ((TextView)SocietiesDay.this.findViewById(R.id.tv23)).setText(beaconsURL[1]);
-            }
-            if(i==2){
-                ((TextView)SocietiesDay.this.findViewById(R.id.tv32)).setText(beaconsSocieties[2]);
-                ((TextView)SocietiesDay.this.findViewById(R.id.tv33)).setText(beaconsURL[2]);
-
-
+                ((TextView)actividadesETSE.this.findViewById(R.id.tv12)).setText(beaconsSocieties[0]);
+                ((TextView)actividadesETSE.this.findViewById(R.id.tv13)).setText(beaconsURL[0]);
+            }else if(i==1){
+                ((TextView)actividadesETSE.this.findViewById(R.id.tv22)).setText(beaconsSocieties[1]);
+                ((TextView)actividadesETSE.this.findViewById(R.id.tv23)).setText(beaconsURL[1]);
+            }else if(i==2){
+                ((TextView)actividadesETSE.this.findViewById(R.id.tv32)).setText(beaconsSocieties[2]);
+                ((TextView)actividadesETSE.this.findViewById(R.id.tv33)).setText(beaconsURL[2]);
             }
         }
     }
-
 }

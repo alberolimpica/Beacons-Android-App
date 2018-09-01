@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:orientation="vertical"
-    tools:context=".BeaconActivity">
+    tools:context=".irASitiosETSE">
 
     <TextView
         android:id="@+id/place_to_go"
@@ -18,12 +18,14 @@
         android:textColor="@color/colorAccent"
         android:textSize="15sp"
         android:text="@string/beacon_question" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/go_to_button"
-        android:layout_gravity="right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
         android:clickable="true"
+        app:backgroundTint="@color/colorUV"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_search_category_default" />
 
@@ -33,6 +35,4 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_weight="0.33" />
-
-
 </LinearLayout>

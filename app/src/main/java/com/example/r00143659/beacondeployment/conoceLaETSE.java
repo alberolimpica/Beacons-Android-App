@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -29,7 +28,7 @@ import io.realm.Realm;
 
 
 // (BeaconConsumer, RangeNotifier) These define callback methods when the beacon scanning service is ready and when beacons are discovered in range.
-public class TreasureHunting extends AppCompatActivity implements View.OnClickListener, BeaconConsumer, RangeNotifier {
+public class conoceLaETSE extends AppCompatActivity implements View.OnClickListener, BeaconConsumer, RangeNotifier {
 
     ImageButton medicalCentreButton, itServiceButton, cardOfficeButton, libraryButton, bankButton, busStopButton;
 
@@ -51,7 +50,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
         medicalCentreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(TreasureHunting.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(conoceLaETSE.this);
                 alert.setTitle("Medical Centre");
                 alert.setMessage(R.string.medical );
                 alert.show();
@@ -60,7 +59,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
         itServiceButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Intent myIntent = new Intent(TreasureHunting.this,
+                Intent myIntent = new Intent(conoceLaETSE.this,
                         About.class);
                 startActivity(myIntent);
             }
@@ -68,7 +67,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
         cardOfficeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Intent myIntent = new Intent(TreasureHunting.this,
+                Intent myIntent = new Intent(conoceLaETSE.this,
                         About.class);
                 startActivity(myIntent);
             }
@@ -76,7 +75,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
         libraryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Intent myIntent = new Intent(TreasureHunting.this,
+                Intent myIntent = new Intent(conoceLaETSE.this,
                         About.class);
                 startActivity(myIntent);
             }
@@ -84,7 +83,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
         bankButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Intent myIntent = new Intent(TreasureHunting.this,
+                Intent myIntent = new Intent(conoceLaETSE.this,
                         About.class);
                 startActivity(myIntent);
             }
@@ -92,7 +91,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
 
         busStopButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Intent myIntent = new Intent(TreasureHunting.this,
+                Intent myIntent = new Intent(conoceLaETSE.this,
                         About.class);
                 startActivity(myIntent);
             }
@@ -254,7 +253,7 @@ public class TreasureHunting extends AppCompatActivity implements View.OnClickLi
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(TreasureHunting.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(conoceLaETSE.this);
         builder.setTitle("Simple Dialog");
         builder.setMessage("Some message here");
         return builder.create();

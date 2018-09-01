@@ -30,10 +30,10 @@
         android:gravity="center"
         android:layout_weight="3"
         android:id="@+id/MyButton1"
-        android:text="@string/find_beacons"
+        android:text="@string/ir_a"
         android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/antenna"
-        android:drawableStart="@drawable/antenna" />
+        android:drawableLeft="@drawable/place_icon"
+        android:drawableStart="@drawable/place_icon" />
 
     <Button
         android:layout_width="match_parent"
@@ -45,7 +45,10 @@
         android:layout_weight="3"
         android:id="@+id/MyButton4"
         android:text="@string/societies_day"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent"
+
+        android:drawableLeft="@drawable/antenna"
+        android:drawableStart="@drawable/antenna"/>
 
     <Button
         android:layout_width="match_parent"
@@ -56,7 +59,7 @@
         android:id="@+id/MyButton2"
         android:gravity="center"
         android:layout_weight="3"
-        android:text="@string/treasure_hunting"
+        android:text="@string/find_beacons"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/treasure_hunt_logo"
         android:drawableStart="@drawable/treasure_hunt_logo" />

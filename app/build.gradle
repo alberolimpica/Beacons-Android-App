@@ -3,7 +3,7 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.example.r00143659.beacondeployment"
@@ -29,11 +29,12 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.google.android.gms:play-services-drive:11.0.4'
-    compile 'com.google.android.gms:play-services-ads:11.0.4'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.google.android.gms:play-services-drive:15.0.1'
+    compile 'com.google.android.gms:play-services-ads:15.0.1'
     compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.google.android.gms:play-services-nearby:11.0.4'
+    compile 'com.google.android.gms:play-services-nearby:15.0.1'
+    //noinspection GradleDynamicVersion
     compile 'org.altbeacon:android-beacon-library:2.3.5+'
-    compile 'com.google.android.gms:play-services-maps:11.0.4'
+    compile 'com.google.android.gms:play-services-maps:15.0.1'
 }

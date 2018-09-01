@@ -60,7 +60,6 @@ public class ServiciosETSE extends AppCompatActivity {
             }
         });
 
-
         webAULAVIRTUAL.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent intent = new Intent (android.content.Intent.ACTION_VIEW,
@@ -84,9 +83,5 @@ public class ServiciosETSE extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
     }
 }

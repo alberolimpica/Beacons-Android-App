@@ -57,7 +57,7 @@ import java.util.List;
 
 import io.realm.Realm;
 
-public class BeaconActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
+public class irASitiosETSE extends AppCompatActivity implements BeaconConsumer, RangeNotifier, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
 
     HashMap<String, SimpleBeacon> hmap = new HashMap<>();
@@ -66,7 +66,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     private List<SimpleBeacon> beaconsList;
     private GoogleApiClient mGoogleApiClient;
     private MessageListener mMessageListener;
-    private static final String TAG = BeaconActivity.class.getSimpleName();
+    private static final String TAG = irASitiosETSE.class.getSimpleName();
     private GoogleMap mGoogleMap ;
 
 
@@ -90,7 +90,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beacon);
+        setContentView(R.layout.activity_ir_a_algun_sitio);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
                 //Nearby messages API
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -345,14 +345,19 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
 
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-
         for (Beacon beacon: beacons) {
+            Identifier namespaceId = beacon.getId1();
+            Identifier instanceId = beacon.getId2();
+
+            Log.d("Finding RealmBeacon", "I see a beacon transmitting namespace id: " + namespaceId +
+                    " and instance id: " + instanceId +
+                    " approximately " + beacon.getDistance() + " meters away.");
             // You can tell if a beacon is an Eddystone beacon because it will have a serviceUuid of
             // 0xfeaa, and a beaconTypeCode of x00. (For the Eddystone-TLM frame, the beaconTypeCode will be 0x20 and for Eddystone-URL the beaconType code will be 0x10).
             if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x00) {
                 // This is a Eddystone-UID frame
-                Identifier namespaceId = beacon.getId1();
-                Identifier instanceId = beacon.getId2();
+                namespaceId = beacon.getId1();
+                instanceId = beacon.getId2();
 
                 Log.d("Finding RealmBeacon", "I see a beacon transmitting namespace id: " + namespaceId +
                         " and instance id: " + instanceId +
@@ -363,7 +368,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer,
               //  storeBeacons(new SimpleBeacon(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views.
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        Log.d("BeaconActivity", "Este beacon");
+                        Log.d("irASitiosETSE", "Este beacon");
                         storeBeacon(new SimpleBeacon(Id, namespace, distance));// Only the original thread that created a view hierarchy can touch its views
                     }
                 });

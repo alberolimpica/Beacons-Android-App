@@ -29,8 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BeaconActivity"
-            android:label="Find beacons"
+        <activity android:name=".irASitiosETSE"
+            android:label="Ir a..."
             android:configChanges="orientation|screenSize">
         </activity>
         <activity android:name=".About"
@@ -43,23 +43,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SocietiesDay"
-            android:label="Societies Day"
+        <activity android:name=".actividadesETSE"
+            android:label="Actividades ETSE"
             android:configChanges="orientation|screenSize">
         </activity>
 
-        <activity android:name=".TreasureHunting"
-            android:label="Treasure hunting"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:configChanges="orientation|screenSize">
-        </activity>
-        <activity android:name=".Form"
-            android:label="Join a society"
+        <activity android:name=".conoceLaETSE"
+            android:label="Conoce la ETSE"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:configChanges="orientation|screenSize">
         </activity>
         <activity android:name=".ServiciosETSE"
-            android:label="CIT Services"
+            android:label="Servicios de la ETSE"
             android:configChanges="orientation|screenSize">
         </activity>
 

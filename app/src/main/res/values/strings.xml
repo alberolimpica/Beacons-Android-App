@@ -3,12 +3,12 @@
     <string name="hello_world">Hola mundo!</string>
     <string name="action_settings">Ajustes</string>
     <string name="beacon_finder">Buscador de beacons!</string>
-    <string name="beacon_question">Let\'s go to the next point!</string>
+    <string name="beacon_question">Vayamos a algun sitio!</string>
     <string name="medical_centre">Centro médico</string>
-    <string name="treasure_hunting">Busqueda del tesoro</string>
-    <string name="find_beacons">Busca beacons</string>
+    <string name="treasure_hunting">Conoce la ETSE</string>
+    <string name="find_beacons">Conoce la ETSE</string>
     <string name="select">Seleccione una de las siguientes opciones:</string>
-    <string name="societies_day">Dia de las sociedades</string>
+    <string name="societies_day">Actividades ETSE</string>
     <string name="medical">WHAT THE MEDICAL CENTRE PROVIDES:
 "
 "  *Medical attention to all full-time students.\n"
@@ -49,4 +49,5 @@
     <string name="opal">Opal</string>
     <string name="web_de_la_etse">Web de la ETSE</string>
     <string name="servicios_de_la_etse">Servicios de la ETSE</string>
+    <string name="ir_a">Ir a...</string>
 </resources>

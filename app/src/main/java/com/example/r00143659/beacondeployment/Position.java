@@ -29,9 +29,6 @@ public class Position {
         double[] r = new double[3];
 
 
-    //static Scanner keyboard = new Scanner(System.in);
-//    static double[] coordinates = new double[1];
-
 	/*@Method beacons
 	 * This method ask the user for the information about where the beacon is and the distance
 	 * the item is from that beacon. Since we are doing a triangulation, it will repeat 3 times
